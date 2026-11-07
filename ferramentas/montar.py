@@ -61,12 +61,15 @@ def main():
     tela = [([norm(x) for x in k.split()], v) for k, v in rot.get("tela", {}).items()]
     tela.sort(key=lambda kv: -len(kv[0]))
     quentes = {norm(x) for x in rot.get("destaques", [])}
+    # chave de cada frase (curiosidade-viral): destaca só naquela frase, só a 1ª vez
+    chaves = {f["id"]: norm(f["chave"]) for b in rot.get("blocos", rot.get("bloques", [])) for f in b.get("frases", []) if f.get("chave")}
 
     blocos = {b["id"]: {"ini": round(b["inicio"] + off, 3), "fim": round(b["fin"] + off, 3)} for b in tm["bloques"]}
     frases = {f["id"]: {"ini": round(f["inicio"] + off, 3), "fim": round(f["fin"] + off, 3)} for f in tm["frases"]}
 
     leg = []
     for f in tm["frases"]:
+        ch, ch_usada = chaves.get(f["id"]), False
         ws = [w for w in tm["palabras"] if w.get("frase") == f["id"]] if "palabras" in tm else []
         if not ws:
             ws = [w for w in f.get("palabras", [])]
@@ -82,8 +85,10 @@ def main():
                     break
             else:
                 w = ws[i]
+                e_chave = bool(ch) and not ch_usada and norm(w["texto"]) == ch
+                ch_usada = ch_usada or e_chave
                 toks.append({"txt": w["texto"].strip(), "ini": w["inicio"], "fim": w["fin"],
-                             "q": norm(w["texto"]) in quentes or bool(re.search(r"\d", w["texto"]))})
+                             "q": e_chave or norm(w["texto"]) in quentes or bool(re.search(r"\d", w["texto"]))})
                 i += 1
         # 2) grupos de até N palavras, quebrando depois de pontuação
         g = []

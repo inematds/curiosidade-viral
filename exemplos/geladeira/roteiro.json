@@ -1,0 +1,78 @@
+{
+ "id": "geladeira",
+ "idioma": "pt",
+ "voz": "nei",
+ "duracao": 30,
+ "pausa": 0.18,
+ "intervalo_blocos": 0.3,
+ "publico": "adulto que tem geladeira em casa e já deixou a porta aberta num dia quente",
+ "pergunta": "se a geladeira faz frio, por que a porta aberta esquenta a cozinha?",
+ "puxao": "a máquina que faz frio é, no fim das contas, um aquecedor da cozinha",
+ "gancho": {
+  "texto": "Sua geladeira esquenta a sua cozinha.",
+  "forma": "contrario",
+  "imagem": "a geladeira de inox inteira, de frente, enchendo o quadro; atrás das bordas sobem ondas de calor laranja-avermelhadas e o texto ESQUENTA aparece em cima"
+ },
+ "reserva": [
+  {
+   "texto": "Atrás da sua geladeira tem um aquecedor ligado o dia todo.",
+   "forma": "objeto",
+   "imagem": "a traseira da geladeira, a grade preta do condensador acendendo laranja e soltando ondas de calor; rótulo AQUECEDOR com linha fina até a grade"
+  },
+  {
+   "texto": "Deixar a porta da sua geladeira aberta esquenta a sua casa.",
+   "forma": "pessoal",
+   "imagem": "a geladeira com a porta aberta, névoa azul-clara escorrendo pela frente e ondas laranja subindo por trás; a palavra ESQUENTA em vermelho sobre a porta"
+  },
+  {
+   "texto": "Se a sua geladeira faz frio, por que a porta aberta esquenta a cozinha?",
+   "forma": "pergunta",
+   "imagem": "a geladeira aberta de frente, névoa fria saindo, e um ponto de interrogação desenhado em laranja atrás dela"
+  }
+ ],
+ "fecho": "Manda para quem deixa a porta da geladeira aberta.",
+ "tela": {},
+ "destaques": ["esquenta", "quente", "esquenta", "frio", "calor", "grade", "tomada", "junto", "brinde", "aquecedor", "Manda"],
+ "blocos": [
+  {"id": "b0", "cena": "gancho", "frases": [
+   {"id": "g", "texto": "Sua geladeira esquenta a sua cozinha.", "chave": "esquenta"}
+  ]},
+  {"id": "b1", "cena": "porta", "frases": [
+   {"id": "f1", "texto": "E abrir a porta não refresca: esquenta mais.", "chave": "esquenta"}
+  ]},
+  {"id": "b2", "cena": "dentro", "frases": [
+   {"id": "f2", "texto": "Porque a geladeira não fabrica frio.", "chave": "frio"},
+   {"id": "f3", "texto": "Ela tira o calor de dentro e leva para fora.", "chave": "calor"}
+  ]},
+  {"id": "b3", "cena": "grade", "frases": [
+   {"id": "f4", "texto": "Ele sai por esta grade aqui atrás.", "chave": "grade"}
+  ]},
+  {"id": "b4", "cena": "tomada", "frases": [
+   {"id": "f5", "texto": "Só que, para empurrar esse calor, o motor gasta energia da tomada.", "chave": "tomada"},
+   {"id": "f6", "texto": "E essa energia também vira calor, e sai junto pela grade.", "chave": "junto"}
+  ]},
+  {"id": "b5", "cena": "volta", "frases": [
+   {"id": "f7", "texto": "Aberta, ela puxa o calor da cozinha e devolve pela grade, com a tomada de brinde.", "chave": "brinde"},
+   {"id": "f8", "texto": "No fundo, ela é um aquecedor que esfria por dentro.", "chave": "aquecedor"}
+  ]},
+  {"id": "b6", "cena": "fecho", "frases": [
+   {"id": "f9", "texto": "Manda para quem deixa a porta da geladeira aberta.", "chave": "Manda"}
+  ]}
+ ],
+ "cenas": {
+  "gancho": {"entrada": "corte", "que": "a geladeira fechada, de frente, enche o quadro; ondas de calor laranja sobem por trás das bordas na palavra 'esquenta'; câmera aproxima devagar",
+             "boceto": {"tipo": "objeto", "texto": "ESQUENTA"}, "som": ""},
+  "porta":  {"entrada": "passagem rápida (dissolve curto)", "que": "a mesma geladeira com a porta aberta; névoa azul-clara escorre pela frente; o rótulo REFRESCA? aparece e é riscado em vermelho na palavra 'esquenta'",
+             "boceto": {"tipo": "comparar", "texto": "Refresca?|Esquenta", "detalhe": "porta aberta"}, "som": ""},
+  "dentro": {"entrada": "sem corte (a câmera entra na geladeira aberta)", "que": "a câmera entra nas prateleiras; na palavra 'calor', setas laranja saem dos potes e correm pelas paredes até o fundo da geladeira",
+             "boceto": {"tipo": "dentro", "texto": "calor de dentro → fundo", "detalhe": "o gás leva o calor"}, "som": ""},
+  "grade":  {"entrada": "corte para a traseira (a história muda de lugar)", "que": "a geladeira vista de trás; na palavra 'grade' a serpentina preta acende laranja e solta ondas de calor; rótulo CONDENSADOR com linha fina",
+             "boceto": {"tipo": "objeto", "texto": "GRADE", "detalhe": "condensador"}, "som": ""},
+  "tomada": {"entrada": "sem corte (a câmera desce até o motor)", "que": "na palavra 'motor' o compressor ganha rótulo MOTOR; um raio de energia sobe do fio; na palavra 'junto' a grade fica mais laranja e aparece a conta DENTRO + TOMADA",
+             "boceto": {"tipo": "cifra", "texto": "DENTRO + TOMADA", "detalhe": "o calor que sai pela grade", "fonte": "OpenStax · Física 2e"}, "som": ""},
+  "volta":  {"entrada": "passagem rápida para a frente", "que": "de novo a geladeira aberta de frente: o frio azul sai pela porta, o calor laranja volta maior por trás; em 'aquecedor' as ondas laranja envolvem a geladeira toda",
+             "boceto": {"tipo": "comparar", "texto": "Frio que sai|Calor que volta", "detalhe": "porta aberta"}, "som": ""},
+  "fecho":  {"entrada": "sem corte (a câmera recua)", "que": "a câmera recua, o reel vira a tela de um celular desenhado; a geladeira continua dentro; um círculo de toque aperta 'Enviar'",
+             "boceto": {"tipo": "celular", "texto": "Enviar"}, "som": ""}
+ }
+}

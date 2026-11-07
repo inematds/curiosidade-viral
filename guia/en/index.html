@@ -6,9 +6,6 @@
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>curiosidade-viral — AI-made faceless curiosity reels</title>
 <meta content="Free kit from INEMA: AI-made faceless curiosity reels, with a vetted hook, storyboard before you spend, local voice, and two agents that only make recommendations." name="description"/>
-
-
-
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet"/>
@@ -180,8 +177,12 @@
 <div class="grid g3">
 <div class="card"><h3>Node.js 22+ and ffmpeg</h3><p>Rendering uses HyperFrames (it downloads automatically the first time).</p><pre><span class="k">node</span> --version
 <span class="k">ffmpeg</span> -version</pre></div>
-<div class="card"><h3>Python 3 with numpy</h3><p>For the checker, storyboard, agents, and music in code.</p><pre><span class="k">python3</span> -m pip install numpy</pre></div>
-<div class="card"><h3>Claude Code or Codex</h3><p>Writes facts, hooks, the script, and scenes. Local voice: Chatterbox + Whisper, with your voice at <code>VC_VOZ</code>.</p><pre><span class="k">export</span> VC_VOZ=<span class="s">~/minha-voz.wav</span></pre></div>
+<div class="card"><h3>Python 3 with numpy</h3><p>For the checker, storyboard, agents, and music in code. On newer Ubuntu/Debian systems, <code>pip</code> system package is blocked: use the system package.</p><pre><span class="k">sudo apt install</span> python3-numpy
+<span class="c"># on Mac: python3 -m pip install numpy</span></pre></div>
+<div class="card"><h3>Claude Code or Codex</h3><p>Writes facts, hooks, the script, and scenes. It’s what "uses" the skill: the instructions the kit gives the AI.</p><pre><span class="k">claude</span>   <span class="c"># or: codex</span></pre></div>
+<div class="card"><h3>Local voice (optional, requires a GPU)</h3><p>O <code>voz.py</code> uses Chatterbox (clones your voice from 10–20 s of audio) and Whisper (timestamps each word), running on an NVIDIA graphics card. Specify their locations with the variables below. No GPU? Skip the voice: the reel will have captions and music (<code>montar.py --sem-voz</code>).</p><pre><span class="k">export</span> CHATTERBOX_PYTHON=<span class="s">~/miniconda3/envs/chatterbox/bin/python3</span>
+<span class="k">export</span> INEMAVOX_DIR=<span class="s">~/inemavox</span>   <span class="c"># folder with venv and Whisper</span>
+<span class="k">export</span> VC_VOZ=<span class="s">~/my-voice.wav</span></pre></div>
 </div>
 </div></section>
 <section id="guia"><div class="wrap">
@@ -190,14 +191,14 @@
 <p class="sub">Run these from the kit folder. For steps 3, 4, 8, and 9, ask Claude Code or Codex; the rest are commands.</p>
 <div class="step"><div class="b">1</div><div>
 <h3>Install</h3>
-<p>Enable the skill in Claude Code and Codex, run the tests, and create yours <code>preferencias.md</code> (audience and closing).</p>
+<p>Enable the skill in Claude Code and Codex, run the tests, and create your <code>preferencias.md</code> (audience and closing).</p>
 <pre><span class="k">git clone</span> <span class="s">https://github.com/inematds/curiosidade-viral.git</span>
 <span class="k">cd</span> curiosidade-viral
 <span class="k">bash</span> instalar.sh</pre>
 </div></div>
 <div class="step"><div class="b">2</div><div>
 <h3>Create the reel folder</h3>
-<p>A short name and the question. It comes out <code>exemplos/&lt;nome&gt;/</code> with <code>roteiro.json</code>, <code>fatos.md</code> e <code>pie.txt</code> to fill in.</p>
+<p>A short name and the question. It comes out <code>exemplos/&lt;nome&gt;/</code> with <code>roteiro.json</code>, <code>fatos.md</code> and <code>pie.txt</code> to fill in.</p>
 <pre><span class="k">python3</span> ferramentas/novo.py chuveiro <span class="s">"por que o chuveiro fica frio quando alguém abre a torneira?"</span> --duracao 30</pre>
 </div></div>
 <div class="step"><div class="b">3</div><div>
@@ -208,13 +209,14 @@
 </div></div>
 <div class="step"><div class="b">4</div><div>
 <h3>4 hooks and the script</h3>
-<p>The AI writes 4 hooks, each in a different style (contrarian, object, number, personal, question), the curiosity-loop script, and the scenes. The rules are in <code>metodo/gancho.md</code> e <code>metodo/roteiro.md</code>.</p>
+<p>The AI writes 4 hooks, each in a different style (contrarian, object, number, personal, question), the curiosity-loop script, and the scenes. The rules are in <code>metodo/gancho.md</code> and <code>metodo/roteiro.md</code>.</p>
 <pre><span class="c">write the 4 hooks and the script for exemplos/chuveiro</span></pre>
 </div></div>
 <div class="step"><div class="b">5</div><div>
 <h3>Run the checker</h3>
 <p>Flags openings with a date or "according to a study," a news tone, "I/my channel," hooks with the same format, numbers without a source, excessive duration, missing closing, or hashtags in the post.</p>
 <pre><span class="k">python3</span> ferramentas/gancho_check.py exemplos/chuveiro   <span class="c"># OK = 0 errors</span></pre>
+<p>Right after step 2, it reports several errors (everything is empty): that’s expected. Run it again after step 4.</p>
 </div></div>
 <div class="step"><div class="b">6</div><div>
 <h3>Approve the storyboard</h3>
@@ -224,7 +226,8 @@
 <div class="step"><div class="b">7</div><div>
 <h3>Local voice, synced to the word</h3>
 <p>Records each line and marks the second for each word, so the screen changes on the right word.</p>
-<pre><span class="k">python3</span> ferramentas/voz.py --projeto exemplos/chuveiro exemplos/chuveiro/roteiro.json</pre>
+<pre><span class="k">python3</span> ferramentas/voz.py --projeto exemplos/chuveiro exemplos/chuveiro/roteiro.json --simular   <span class="c"># only shows what it will write</span>
+<span class="k">python3</span> ferramentas/voz.py --projeto exemplos/chuveiro exemplos/chuveiro/roteiro.json</pre>
 </div></div>
 <div class="step"><div class="b">8</div><div>
 <h3>Images and scenes</h3>
@@ -233,30 +236,45 @@
 </div></div>
 <div class="step"><div class="b">9</div><div>
 <h3>Clock, music, and rendering</h3>
-<p>Check the still frames before spending on the render.</p>
+<p>Before rendering (about 5 minutes), extract still frames and review each scene.</p>
 <pre><span class="k">python3</span> ferramentas/montar.py --projeto exemplos/chuveiro
 <span class="k">python3</span> ferramentas/mezcla.py --projeto exemplos/chuveiro --id chuveiro --musica tranquila
 <span class="k">python3</span> ferramentas/preparar.py --projeto exemplos/chuveiro
-<span class="k">cd</span> exemplos/chuveiro <span class="k">&amp;&amp;</span> npx hyperframes check <span class="k">&amp;&amp;</span> npx hyperframes render --output renders/chuveiro.mp4</pre>
+<span class="c"># no GPU: montar.py --projeto exemplos/chuveiro --sem-voz</span>
+<span class="k">cd</span> exemplos/chuveiro
+<span class="k">npx</span> hyperframes check
+<span class="k">npx</span> hyperframes snapshot --at 0,5,12,20 -o stills   <span class="c"># check the images in stills/</span>
+<span class="k">npx</span> hyperframes render --output renders/chuveiro.mp4
+<span class="k">cd</span> ../..   <span class="c"># go back to the kit folder</span></pre>
 </div></div>
 <div class="step"><div class="b">10</div><div>
 <h3>Tagged link and manual posting</h3>
 <p>One link per reel, so you know what brought each person in. Post from your phone: in the real-world case, the automated post tanked reach.</p>
-<pre><span class="k">python3</span> agentes/link.py <span class="s">https://seu-site.com</span> --conta minhaconta --onde reel --reel chuveiro</pre>
+<pre><span class="k">python3</span> agentes/link.py <span class="s">https://your-site.com</span> --conta myaccount --onde reel --reel chuveiro</pre>
 </div></div>
 </div></section>
 <section id="agentes"><div class="wrap">
 <span class="chip">The two agents</span>
 <h2>They make suggestions. You decide.</h2>
-<p class="sub">The rules are in the code, not just in the prompt: the agent can’t forget any of them. Cards to paste into your agent: <code>agentes/curio.md</code> e <code>agentes/clic.md</code>.</p>
+<p class="sub">The rules are in the code, not just in the prompt: the agent can’t forget any of them. Cards to paste into your agent: <code>agentes/curio.md</code> and <code>agentes/clic.md</code>.</p>
 <div class="grid g3" style="grid-template-columns:1fr 1fr">
 <div class="card"><h3>💬 Curio — the account</h3><p>Sort DMs and comments: "how do I do it?" gets a ready-made reply with the link; complaints, refund requests, and brand messages go to you; like compliments. Only notify you when there’s something new.</p>
 <pre><span class="k">python3</span> agentes/curio_triagem.py agentes/exemplos/mensagens.json \
-  --link <span class="s">"https://seu-site.com/?utm_medium=dm"</span> --estado curio.json</pre></div>
+  --link <span class="s">"https://your-site.com/?utm_medium=dm"</span> --estado curio.json</pre></div>
 <div class="card"><h3>📈 Clic — the ads</h3><p>1. no OK, no spend · 2. daily cap · 3. only scale up with a return of 1.5x or more · 4. quickly cut what doesn’t sell. And two alerts: broken tracking and scattered budget.</p>
 <pre><span class="k">python3</span> agentes/clic_regras.py agentes/exemplos/metricas.json</pre></div>
 </div>
-<pre style="margin-top:18px"><span class="c"># Clic output with the kit example</span>
+<h3 style="margin-top:22px">Where the data comes from</h3>
+<p>The agents don’t access your account: you (or the tool you already use) export the data to two simple files. The kit includes examples of both in <code>agentes/exemplos/</code>.</p>
+<div class="grid g3" style="grid-template-columns:1fr 1fr">
+<div class="card"><h3>mensagens.json (Curio)</h3><p>New DMs and comments, copied by hand or exported from the platform.</p><pre>[{"id": "d1", "de": "@marina", "onde": "dm",
+  "texto": "Como você faz esses vídeos?"}]</pre></div>
+<div class="card"><h3>metricas.json (Clic)</h3><p>From the ad manager (spend, budget) and your store (sales, revenue), in the same currency.</p><pre>{"config": {"teto_dia": 150, "retorno_min": 1.5},
+ "medicao_ok": true, "compradores_excluidos": true,
+ "anuncios": [{"id": "geladeira-h1", "orcamento_dia": 40,
+   "gasto": 82, "vendas": 4, "receita": 178}]}</pre></div>
+</div>
+<pre style="margin-top:18px"><span class="c"># Clic output with the kit example (the tools respond in Portuguese)</span>
 Clic · proposta de anúncios (nada muda sem o seu OK)
 ⚠ Quem já comprou ainda vê o anúncio: exclua os compradores do público.
   SUBIR    geladeira-h1: 40 → 50/dia · retorno 2.17 ≥ 1.5 com 4 venda(s)
@@ -265,15 +283,15 @@ Clic · proposta de anúncios (nada muda sem o seu OK)
   REDUZIR  cebola-h1: 30 → 15/dia · vende, mas devolve menos do que custa (retorno 0.72)
 Total proposto: 85/dia (teto 150).</pre>
 </div></section>
-<!--EXEMPLOS <section id="exemplos"><div class="wrap">
+<section id="exemplos"><div class="wrap">
 <span class="chip">Example</span>
 <h2>The refrigerator reel</h2>
-<p class="sub">The full example is at <code>exemplos/geladeira/</code>: facts, 4 hooks, script, storyboard, voice, and render.</p>
+<p class="sub">The full example is at <code>exemplos/geladeira/</code>: sourced facts, 4 hooks and the selection, script, storyboard, voice, images, and the reel page. To make your own, copy this folder and replace the content.</p>
 <div class="ex">
 <figure><img alt="Storyboard for the refrigerator reel" loading="lazy" src="../assets/ex1.jpg"/><figcaption>The storyboard: one card per scene, approved before you spend.</figcaption></figure>
-<figure><img alt="Frame 0 of the refrigerator reel" loading="lazy" src="../assets/ex2.jpg"/><figcaption>Frame 0: the hook’s object, large, and the text that names it.</figcaption></figure>
+<figure><video controls="" playsinline="" poster="../assets/geladeira-poster.jpg" preload="none" src="../assets/geladeira.mp4" style="width:100%;display:block;background:#000"></video><figcaption>The finished reel (40 s): the refrigerator stays on screen the whole time, the heat is drawn over it, and the ending is on the phone.</figcaption></figure>
 </div>
-</div></section> EXEMPLOS-->
+</div></section>
 <section id="licoes"><div class="wrap">
 <span class="chip">The real case</span>
 <h2>The 6 lessons from one week</h2>
@@ -285,6 +303,21 @@ Total proposto: 85/dia (teto 150).</pre>
 <div class="card"><h3>4. Tag each link</h3><p>Sales you can’t trace back to their source can’t be repeated.</p></div>
 <div class="card"><h3>5. Automate customer service, not decisions</h3><p>The agents respond and keep watch. You decide how to spend the money.</p></div>
 <div class="card"><h3>6. Organic content sells too</h3><p>The bio brought in 7 sales without a single ad.</p></div>
+</div>
+</div></section>
+<section id="termos"><div class="wrap">
+<span class="chip">Terms</span>
+<h2>Words used in the guide</h2>
+<div class="grid g3">
+<div class="card"><h3>Skill</h3><p>A folder of instructions that Claude Code or Codex follows to complete a task. Here, to make the reel.</p></div>
+<div class="card"><h3>Hook</h3><p>The reel’s first sentence and first image: what makes someone stop scrolling.</p></div>
+<div class="card"><h3>Storyboard</h3><p>The reel laid out on cards, scene by scene, before it exists.</p></div>
+<div class="card"><h3>slug</h3><p>The reel’s short folder name, with no spaces or accents (e.g., <code>chuveiro</code>).</p></div>
+<div class="card"><h3>pie.txt</h3><p>The text for the post caption.</p></div>
+<div class="card"><h3>Curiosity loop</h3><p>Each sentence answers the previous one and opens a new question, until the final answer.</p></div>
+<div class="card"><h3>HyperFrames</h3><p>The tool that turns an animated web page into an MP4 video.</p></div>
+<div class="card"><h3>1.5× return</h3><p>For every 10 spent on the ad, 15 came back in sales.</p></div>
+<div class="card"><h3>Tagged link (UTM)</h3><p>The same link with an ending that says where the person came from (which reel, bio, or DM).</p></div>
 </div>
 </div></section>
 <footer>

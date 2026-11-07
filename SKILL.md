@@ -58,4 +58,7 @@ Fichas completas: `agentes/curio.md` e `agentes/clic.md`.
 - Número na voz: escreva por extenso no roteiro e mapeie para algarismo em `tela`.
 - O verificador só vê o que é texto. Os 3 testes de olho (o estranho vem primeiro? deixa pergunta? funciona sem som?)
   são seus: compare os 4 ganchos de dois em dois, sem dar nota.
+- Reel de fotos (como a geladeira): copie `exemplos/geladeira/` — o `js/reel.js` dele tem os ajudantes sem 3D. Reel 3D: `motor/base.js`.
+- Fotos trocando por `z-index` (dissolve) escondem o desenho por cima: dê `z-index` próprio ao SVG e aos brilhos.
+- Destaque: a `chave` de cada frase acende só naquela frase. `destaques` (lista global) acende em todas: use pouco.
 - 9:16 tem pouca largura: a coisa ocupa metade da tela ou mais, legenda em cima, nada na faixa de baixo nem na da direita.

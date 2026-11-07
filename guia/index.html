@@ -6,9 +6,6 @@
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>curiosidade-viral — reels de curiosidade sem rosto feitos por IA</title>
 <meta content="Kit grátis do INEMA: reels de curiosidade sem rosto feitos por IA, com gancho conferido, storyboard antes de gastar, voz local e dois agentes que só propõem." name="description"/>
-
-
-
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet"/>
@@ -183,7 +180,7 @@
 <div class="card"><h3>Python 3 com numpy</h3><p>Para o verificador, o storyboard, os agentes e a música em código. No Ubuntu/Debian novos o <code>pip</code> do sistema é bloqueado: use o pacote do sistema.</p><pre><span class="k">sudo apt install</span> python3-numpy
 <span class="c"># no Mac: python3 -m pip install numpy</span></pre></div>
 <div class="card"><h3>Claude Code ou Codex</h3><p>Escreve fatos, ganchos, roteiro e cenas. É quem "usa" a skill: as instruções que o kit dá à IA.</p><pre><span class="k">claude</span>   <span class="c"># ou: codex</span></pre></div>
-    <div class="card"><h3>Voz local (opcional, precisa de GPU)</h3><p>O <code>voz.py</code> usa o Chatterbox (clona a sua voz a partir de 10–20 s de áudio) e o Whisper (marca o tempo de cada palavra), rodando numa placa de vídeo NVIDIA. Diga onde estão com as variáveis abaixo. Sem GPU? Pule a voz: o reel sai com legenda e música (<code>montar.py --sem-voz</code>).</p><pre><span class="k">export</span> CHATTERBOX_PYTHON=<span class="s">~/miniconda3/envs/chatterbox/bin/python3</span>
+<div class="card"><h3>Voz local (opcional, precisa de GPU)</h3><p>O <code>voz.py</code> usa o Chatterbox (clona a sua voz a partir de 10–20 s de áudio) e o Whisper (marca o tempo de cada palavra), rodando numa placa de vídeo NVIDIA. Diga onde estão com as variáveis abaixo. Sem GPU? Pule a voz: o reel sai com legenda e música (<code>montar.py --sem-voz</code>).</p><pre><span class="k">export</span> CHATTERBOX_PYTHON=<span class="s">~/miniconda3/envs/chatterbox/bin/python3</span>
 <span class="k">export</span> INEMAVOX_DIR=<span class="s">~/inemavox</span>   <span class="c"># pasta com venv e Whisper</span>
 <span class="k">export</span> VC_VOZ=<span class="s">~/minha-voz.wav</span></pre></div>
 </div>
@@ -219,7 +216,7 @@
 <h3>Rode o verificador</h3>
 <p>Acusa começo com data ou "segundo um estudo", tom de notícia, "eu/meu canal", ganchos com a mesma forma, número sem fonte, duração passando, fecho faltando, hashtag no post.</p>
 <pre><span class="k">python3</span> ferramentas/gancho_check.py exemplos/chuveiro   <span class="c"># OK = 0 erro</span></pre>
-    <p>Logo depois do passo 2 ele acusa vários erros (está tudo vazio): é o esperado. Rode de novo depois do passo 4.</p>
+<p>Logo depois do passo 2 ele acusa vários erros (está tudo vazio): é o esperado. Rode de novo depois do passo 4.</p>
 </div></div>
 <div class="step"><div class="b">6</div><div>
 <h3>Aprove o storyboard</h3>
@@ -268,15 +265,15 @@
 <pre><span class="k">python3</span> agentes/clic_regras.py agentes/exemplos/metricas.json</pre></div>
 </div>
 <h3 style="margin-top:22px">De onde vêm os dados</h3>
-  <p>Os agentes não entram na sua conta: você (ou a ferramenta que você já usa) exporta os dados para dois arquivos simples. O kit traz os dois de exemplo em <code>agentes/exemplos/</code>.</p>
-  <div class="grid g3" style="grid-template-columns:1fr 1fr">
-    <div class="card"><h3>mensagens.json (Curio)</h3><p>As DMs e os comentários novos, copiados à mão ou exportados da rede.</p><pre>[{"id": "d1", "de": "@marina", "onde": "dm",
+<p>Os agentes não entram na sua conta: você (ou a ferramenta que você já usa) exporta os dados para dois arquivos simples. O kit traz os dois de exemplo em <code>agentes/exemplos/</code>.</p>
+<div class="grid g3" style="grid-template-columns:1fr 1fr">
+<div class="card"><h3>mensagens.json (Curio)</h3><p>As DMs e os comentários novos, copiados à mão ou exportados da rede.</p><pre>[{"id": "d1", "de": "@marina", "onde": "dm",
   "texto": "Como você faz esses vídeos?"}]</pre></div>
-    <div class="card"><h3>metricas.json (Clic)</h3><p>Do gerenciador de anúncios (gasto, orçamento) e da sua loja (vendas, receita), na mesma moeda.</p><pre>{"config": {"teto_dia": 150, "retorno_min": 1.5},
+<div class="card"><h3>metricas.json (Clic)</h3><p>Do gerenciador de anúncios (gasto, orçamento) e da sua loja (vendas, receita), na mesma moeda.</p><pre>{"config": {"teto_dia": 150, "retorno_min": 1.5},
  "medicao_ok": true, "compradores_excluidos": true,
  "anuncios": [{"id": "geladeira-h1", "orcamento_dia": 40,
    "gasto": 82, "vendas": 4, "receita": 178}]}</pre></div>
-  </div>
+</div>
 <pre style="margin-top:18px"><span class="c"># saída do Clic com o exemplo do kit (as ferramentas respondem em português)</span>
 Clic · proposta de anúncios (nada muda sem o seu OK)
 ⚠ Quem já comprou ainda vê o anúncio: exclua os compradores do público.
@@ -286,15 +283,15 @@ Clic · proposta de anúncios (nada muda sem o seu OK)
   REDUZIR  cebola-h1: 30 → 15/dia · vende, mas devolve menos do que custa (retorno 0.72)
 Total proposto: 85/dia (teto 150).</pre>
 </div></section>
-<!--EXEMPLOS <section id="exemplos"><div class="wrap">
+<section id="exemplos"><div class="wrap">
 <span class="chip">Exemplo</span>
 <h2>O reel da geladeira</h2>
-<p class="sub">O exemplo completo está em <code>exemplos/geladeira/</code>: fatos, 4 ganchos, roteiro, storyboard, voz e render.</p>
+<p class="sub">O exemplo completo está em <code>exemplos/geladeira/</code>: fatos com fonte, 4 ganchos e a escolha, roteiro, storyboard, voz, imagens e a página do reel. Para fazer o seu, copie esta pasta e troque o conteúdo.</p>
 <div class="ex">
 <figure><img alt="Storyboard do reel da geladeira" loading="lazy" src="assets/ex1.jpg"/><figcaption>O storyboard: uma ficha por cena, aprovada antes de gastar.</figcaption></figure>
-<figure><img alt="Quadro 0 do reel da geladeira" loading="lazy" src="assets/ex2.jpg"/><figcaption>O quadro 0: a coisa do gancho grande e o texto que a nomeia.</figcaption></figure>
+<figure><video controls="" playsinline="" poster="assets/geladeira-poster.jpg" preload="none" src="assets/geladeira.mp4" style="width:100%;display:block;background:#000"></video><figcaption>O reel pronto (40 s): a geladeira na tela o tempo todo, o calor desenhado por cima, o fecho no celular.</figcaption></figure>
 </div>
-</div></section> EXEMPLOS-->
+</div></section>
 <section id="licoes"><div class="wrap">
 <span class="chip">O caso real</span>
 <h2>As 6 lições de uma semana</h2>
@@ -309,21 +306,20 @@ Total proposto: 85/dia (teto 150).</pre>
 </div>
 </div></section>
 <section id="termos"><div class="wrap">
-  <span class="chip">Termos</span>
-  <h2>Palavras que aparecem no guia</h2>
-  <div class="grid g3">
-    <div class="card"><h3>Skill</h3><p>Uma pasta de instruções que o Claude Code ou o Codex segue para fazer uma tarefa. Aqui, fazer o reel.</p></div>
-    <div class="card"><h3>Gancho</h3><p>A primeira frase e a primeira imagem do reel: o que faz alguém parar de rolar.</p></div>
-    <div class="card"><h3>Storyboard</h3><p>O reel desenhado em fichas, cena por cena, antes de existir.</p></div>
-    <div class="card"><h3>slug</h3><p>O nome curto da pasta do reel, sem espaço nem acento (ex.: <code>chuveiro</code>).</p></div>
-    <div class="card"><h3>pie.txt</h3><p>O texto que vai na legenda do post.</p></div>
-    <div class="card"><h3>Laço de curiosidade</h3><p>Cada frase responde a anterior e abre uma pergunta nova, até a resposta final.</p></div>
-    <div class="card"><h3>HyperFrames</h3><p>A ferramenta que transforma uma página web animada num vídeo MP4.</p></div>
-    <div class="card"><h3>Retorno 1,5 vez</h3><p>Para cada 10 gastos no anúncio, voltaram 15 em vendas.</p></div>
-    <div class="card"><h3>Link etiquetado (UTM)</h3><p>O mesmo link com um final que diz de onde a pessoa veio (qual reel, bio ou DM).</p></div>
-  </div>
+<span class="chip">Termos</span>
+<h2>Palavras que aparecem no guia</h2>
+<div class="grid g3">
+<div class="card"><h3>Skill</h3><p>Uma pasta de instruções que o Claude Code ou o Codex segue para fazer uma tarefa. Aqui, fazer o reel.</p></div>
+<div class="card"><h3>Gancho</h3><p>A primeira frase e a primeira imagem do reel: o que faz alguém parar de rolar.</p></div>
+<div class="card"><h3>Storyboard</h3><p>O reel desenhado em fichas, cena por cena, antes de existir.</p></div>
+<div class="card"><h3>slug</h3><p>O nome curto da pasta do reel, sem espaço nem acento (ex.: <code>chuveiro</code>).</p></div>
+<div class="card"><h3>pie.txt</h3><p>O texto que vai na legenda do post.</p></div>
+<div class="card"><h3>Laço de curiosidade</h3><p>Cada frase responde a anterior e abre uma pergunta nova, até a resposta final.</p></div>
+<div class="card"><h3>HyperFrames</h3><p>A ferramenta que transforma uma página web animada num vídeo MP4.</p></div>
+<div class="card"><h3>Retorno 1,5 vez</h3><p>Para cada 10 gastos no anúncio, voltaram 15 em vendas.</p></div>
+<div class="card"><h3>Link etiquetado (UTM)</h3><p>O mesmo link com um final que diz de onde a pessoa veio (qual reel, bio ou DM).</p></div>
+</div>
 </div></section>
-
 <footer>
 <div class="wrap">
 <div class="pill">Claude Code / Codex</div><div class="pill">HyperFrames</div><div class="pill">voz local</div><div class="pill">Python</div>

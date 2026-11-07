@@ -112,6 +112,21 @@ class Gancho(unittest.TestCase):
         self.assertTrue(any("matiz" in x for x in e))
 
 
+class Montar(unittest.TestCase):
+    def test_chave_so_na_sua_frase(self):
+        import re, subprocess
+        r = roteiro_bom()
+        r["blocos"][2]["frases"][0]["texto"] = "A luz esquenta? Ela tira o calor e joga pela grade."
+        d = pasta_com(r)
+        subprocess.run([sys.executable, str(RAIZ / "ferramentas" / "montar.py"), "--projeto", str(d), "--sem-voz"],
+                       check=True, capture_output=True)
+        t = (d / "js" / "tempos.js").read_text()
+        leg = json.loads(re.search(r"LEG = (\[.*?\]);\n", t).group(1))
+        quentes = [q.lower() for g in leg for q in g["quente"]]
+        self.assertEqual(quentes.count("esquenta"), 1)   # chave só da frase g
+        self.assertIn("grade", quentes)
+
+
 class Storyboard(unittest.TestCase):
     def test_gera_html(self):
         d = pasta_com(roteiro_bom())

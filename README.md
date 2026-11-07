@@ -29,7 +29,7 @@ Clic cuida dos anúncios com 4 regras escritas em código) e o **link etiquetado
 | `ferramentas/` | `novo.py`, `gancho_check.py` (verificador), `storyboard.py`, `voz.py` (voz local presa à palavra), `montar.py`, `mezcla.py`, `preparar.py` |
 | `motor/` | base do render (HyperFrames + Three.js), fontes locais |
 | `agentes/` | `curio.md` + `curio_triagem.py`, `clic.md` + `clic_regras.py`, `link.py`, exemplos |
-| `exemplos/geladeira/` | o reel de demonstração, do roteiro ao MP4 |
+| `exemplos/geladeira/` | o reel de demonstração, do roteiro à página do reel (MP4 em [Releases](https://github.com/inematds/curiosidade-viral/releases/tag/video-v1.0.0)) |
 | `docs/caso-e-metodo.md` | o caso real (uma semana, conta do zero) e o que ele ensina |
 | `testes/` | `python3 -m unittest discover -s testes` |
 

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+<link rel="stylesheet" href="motor/reel.css" />
+<style>
+  :root { --calor: #ff5a2a; --frio: #8fd3ff; --errado: #ff2d2d; }
+  /* atrás de tudo no fecho: a mesma geladeira, desfocada */
+  #fundo { position: absolute; inset: -40px; background: url(media/frente.png) center/cover; filter: blur(26px) brightness(.38); opacity: 0; z-index: 0; }
+  /* o celular: moldura desenhada; o palco (a cena) encolhe para dentro dela no fecho */
+  #tela { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 0 0; overflow: hidden; z-index: 1; background: #0c0c10; }
+  #palco { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 0 0; }
+  .foto { position: absolute; inset: 0; width: 1080px; height: 1920px; object-fit: cover; opacity: 0; }
+  .brilho { position: absolute; z-index: 1000; opacity: 0; mix-blend-mode: screen; pointer-events: none; }
+  #desenho { position: absolute; z-index: 1001; left: 0; top: 0; width: 1080px; height: 1920px; overflow: visible; }
+  #vinheta { position: absolute; inset: 0; z-index: 2; pointer-events: none;
+    background: linear-gradient(180deg, rgba(12,12,16,.72) 0%, rgba(12,12,16,0) 26%, rgba(12,12,16,0) 70%, rgba(12,12,16,.55) 100%); }
+  .rot { font: 700 30px Inter, sans-serif; letter-spacing: .06em; fill: #fff; paint-order: stroke; stroke: rgba(0,0,0,.65); stroke-width: 6px; }
+  /* gancho escrito no quadro 0 */
+  #gancho { position: absolute; left: 60px; right: 160px; top: 210px; z-index: 6; opacity: 0;
+    font: 800 92px/1.02 Sora, sans-serif; color: #fff; letter-spacing: -.015em;
+    text-shadow: 0 2px 4px rgba(0,0,0,.6), 0 8px 30px rgba(0,0,0,.6); }
+  #gancho em { font-style: normal; color: #FACC15; }
+  /* legenda em cima (o método pede em cima; o reel.css a deixa embaixo) */
+  #leg { top: 250px; left: 470px; width: 840px; font-size: 64px; }
+  /* conta do calor (cifra) */
+  #conta { position: absolute; left: 60px; width: 840px; top: 470px; z-index: 6; opacity: 0; text-align: center;
+    background: rgba(12,12,16,.66); border: 1px solid rgba(255,90,42,.45); border-radius: 18px; padding: 22px 26px 18px; }
+  #conta .l1 { font: 700 30px Inter, sans-serif; color: rgba(255,255,255,.85); letter-spacing: .04em; }
+  #conta .l2 { font: 800 60px/1.1 Sora, sans-serif; color: #fff; margin-top: 8px; }
+  #conta .l2 .c { color: var(--calor); }
+  #conta .l2 .w { color: #fff; }
+  #conta small { display: block; margin-top: 12px; font: 700 28px "JetBrains Mono", monospace; color: rgba(255,255,255,.6); letter-spacing: .05em; }
+  /* fonte: cinza pequeno, acima da faixa dos botões */
+  .fonte-linha { top: 1520px; left: 60px; right: 160px; text-align: left; font-size: 28px; color: rgba(255,255,255,.62); }
+  .fonte-linha::before { content: "fonte · "; color: rgba(255,255,255,.62); }
+  /* moldura do celular */
+  #celular { position: absolute; z-index: 4; opacity: 0; border-radius: 64px; border: 14px solid #1d1f26;
+    box-shadow: 0 0 0 3px #3a3d47, 0 30px 80px rgba(0,0,0,.7); pointer-events: none; }
+  #enviar { position: absolute; z-index: 5; opacity: 0; font: 800 44px Inter, sans-serif; color: #0c0c10; background: #FACC15;
+    padding: 18px 52px; border-radius: 999px; box-shadow: 0 8px 26px rgba(0,0,0,.5); }
+  #dedo { position: absolute; z-index: 6; opacity: 0; width: 120px; height: 120px; border-radius: 50%;
+    background: rgba(255,255,255,.35); border: 5px solid rgba(255,255,255,.9); }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="39.74" data-width="1080" data-height="1920">
+  <div id="fundo"></div>
+  <div id="tela">
+    <div id="palco">
+      <img class="foto" id="im-frente" src="media/frente.png" alt="" />
+      <img class="foto" id="im-aberta" src="media/aberta.png" alt="" />
+      <img class="foto" id="im-tras" src="media/tras.png" alt="" />
+      <img class="foto" id="im-grade" src="media/grade.png" alt="" />
+      <!-- a grade acende: brilho na cor do calor sobre a serpentina -->
+      <div class="brilho" id="br-tras" style="left:330px;top:40px;width:680px;height:1500px;background:radial-gradient(ellipse at 50% 50%, rgba(255,90,42,.55), rgba(255,90,42,.18) 60%, rgba(255,90,42,0) 80%)"></div>
+      <div class="brilho" id="br-grade" style="left:0;top:0;width:1080px;height:1920px;background:radial-gradient(ellipse at 55% 45%, rgba(255,90,42,.6), rgba(255,90,42,.22) 55%, rgba(255,90,42,0) 85%)"></div>
+      <div class="brilho" id="br-frente" style="left:60px;top:-60px;width:960px;height:2000px;background:radial-gradient(ellipse at 50% 48%, rgba(255,90,42,0) 38%, rgba(255,90,42,.45) 52%, rgba(255,90,42,0) 70%)"></div>
+      <svg id="desenho" viewBox="0 0 1080 1920" aria-hidden="true">
+        <defs>
+          <linearGradient id="gCalor" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#ff5a2a" stop-opacity="0" /><stop offset=".25" stop-color="#ff5a2a" stop-opacity=".95" /><stop offset="1" stop-color="#ff5a2a" stop-opacity="0" /></linearGradient>
+          <linearGradient id="gFrio" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fd3ff" stop-opacity=".95" /><stop offset="1" stop-color="#8fd3ff" stop-opacity="0" /></linearGradient>
+          <marker id="pontaC" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#ff5a2a" /></marker>
+          <marker id="pontaF" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8fd3ff" /></marker>
+          <filter id="halo" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6" result="b" /><feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge></filter>
+        </defs>
+        <g id="ondas" filter="url(#halo)"></g>
+        <g id="setas" filter="url(#halo)"></g>
+        <g id="frio"></g>
+        <g id="rotulos"></g>
+      </svg>
+    </div>
+    <div id="vinheta"></div>
+  </div>
+  <div id="celular"></div>
+  <div id="enviar">Enviar</div>
+  <div id="dedo"></div>
+
+  <!-- quadro 0: o gancho escrito em cima da geladeira -->
+  <div id="gancho">Sua geladeira <em>esquenta</em> a sua cozinha.</div>
+
+  <!-- conta: aparece na palavra "junto" -->
+  <div id="conta" data-de="f6+1.4" data-ate="b5-0.15"><div class="l1">O CALOR QUE SAI PELA GRADE</div><div class="l2"><span class="c">DENTRO</span> <span class="w">+</span> <span class="c">TOMADA</span></div><small>OPENSTAX · FÍSICA 2E · Qh = Qc + W</small></div>
+
+  <!-- fontes -->
+  <div class="fonte-linha" data-de="f1+0.5" data-ate="b2-0.15">PHYSICS VAN · UNIVERSITY OF ILLINOIS</div>
+  <div class="fonte-linha" data-de="f2+0.4" data-ate="b3-0.15">HYPERPHYSICS · GEORGIA STATE UNIVERSITY</div>
+  <div class="fonte-linha" data-de="f4+0.2" data-ate="f5+1.2">PNNL · DEPARTAMENTO DE ENERGIA DOS EUA</div>
+  <div class="fonte-linha" data-de="f7+0.4" data-ate="b6-0.15">PHYSICS VAN · UNIVERSITY OF ILLINOIS</div>
+
+  <div id="leg"></div>
+
+  <audio id="som" class="clip" data-start="0" data-duration="39.74" data-track-index="10" data-volume="1" src="audio/geladeira/final.wav"></audio>
+</div>
+<script>
+  const tl = gsap.timeline({ paused: true });
+  tl.to({}, { duration: 39.74 }, 0);
+  window.__timelines = window.__timelines || {}; window.__timelines["main"] = tl;
+</script>
+<script type="module" src="js/reel.js"></script>
+</body>
+</html>

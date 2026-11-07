@@ -32,7 +32,7 @@ def esboco(b):
     tipo = (b or {}).get("tipo", "objeto")
     tx, det = esc(b.get("texto")), esc(b.get("detalhe"))
     if tipo == "cifra":
-        return f'<div class="sk cifra"><b>{tx}</b><small>{det}</small><i>fonte</i></div>'
+        return f'<div class="sk cifra"><b>{tx}</b><small>{det}</small><i>{esc(b.get("fonte")) or "fonte?"}</i></div>'
     if tipo == "comparar":
         a, _, c = (b.get("texto") or "A|B").partition("|")
         return f'<div class="sk comparar"><div>{esc(a)}</div><div class="vs">×</div><div class="red">{esc(c)}</div></div>'

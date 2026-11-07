@@ -47,8 +47,8 @@ html, body { width: 1080px; height: 1920px; overflow: hidden; background: #0c0c1
   text-shadow: 0 1px 3px rgba(0,0,0,.8); }
 .fonte-linha::before { content: "◆ "; color: var(--amarelo); }
 
-/* legenda: uma linha, menor, sem contorno pesado */
-#leg { position: absolute; left: 50%; top: 1270px; z-index: 8; width: 980px; text-align: center; opacity: 0;
+/* legenda: uma linha, EM CIMA (metodo/imagem.md), longe dos botões da rede */
+#leg { position: absolute; left: 50%; top: 250px; z-index: 8; width: 980px; text-align: center; opacity: 0;
   font: 700 58px/1.12 Inter, sans-serif; color: #fff; letter-spacing: -.005em;
   text-shadow: 0 2px 4px rgba(0,0,0,.75), 0 6px 22px rgba(0,0,0,.55); transform: translateX(-50%); }
 #leg b { color: var(--amarelo); font-weight: 700; }
