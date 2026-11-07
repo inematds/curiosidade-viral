@@ -181,8 +181,8 @@
 <span class="c"># en Mac: python3 -m pip install numpy</span></pre></div>
 <div class="card"><h3>Claude Code o Codex</h3><p>Escribe datos, ganchos, guion y escenas. Es quien "usa" la skill: las instrucciones que el kit le da a la IA.</p><pre><span class="k">claude</span>   <span class="c"># o: codex</span></pre></div>
 <div class="card"><h3>Voz local (opcional, requiere GPU)</h3><p>O <code>voz.py</code> usa Chatterbox (clona tu voz a partir de 10–20 s de audio) y Whisper (marca el tiempo de cada palabra), ejecutándose en una tarjeta gráfica NVIDIA. Indica dónde están con las variables de abajo. ¿No tienes GPU? Omite la voz: el reel sale con subtítulos y música (<code>montar.py --sem-voz</code>).</p><pre><span class="k">export</span> CHATTERBOX_PYTHON=<span class="s">~/miniconda3/envs/chatterbox/bin/python3</span>
-<span class="k">export</span> INEMAVOX_DIR=<span class="s">~/inemavox</span>   <span class="c"># carpeta con venv y Whisper</span>
-<span class="k">export</span> VC_VOZ=<span class="s">~/mi-voz.wav</span></pre></div>
+<span class="k">export</span> INEMAVOX_DIR=<span class="s">~/inemavox</span>   <span class="c"># carpeta con venv y Whisper: git clone https://github.com/inematds/inemavox</span>
+<span class="k">export</span> VC_VOZ=<span class="s">~/mi-voz.wav</span>   <span class="c"># obligatorio: TU voz (si no, busca la voz por defecto del autor)</span></pre></div>
 </div>
 </div></section>
 <section id="guia"><div class="wrap">
@@ -226,7 +226,7 @@
 <div class="step"><div class="b">7</div><div>
 <h3>Voz local, sincronizada con cada palabra</h3>
 <p>Graba cada frase y marca el segundo de cada palabra, para que la pantalla cambie en la palabra correcta.</p>
-<pre><span class="k">python3</span> ferramentas/voz.py --projeto exemplos/chuveiro exemplos/chuveiro/roteiro.json --simular   <span class="c"># solo muestra lo que va a guardar</span>
+<pre><span class="k">python3</span> ferramentas/voz.py --projeto exemplos/chuveiro exemplos/chuveiro/roteiro.json --simular   <span class="c"># solo muestra lo que va a grabar</span>
 <span class="k">python3</span> ferramentas/voz.py --projeto exemplos/chuveiro exemplos/chuveiro/roteiro.json</pre>
 </div></div>
 <div class="step"><div class="b">8</div><div>

@@ -180,9 +180,9 @@
 <div class="card"><h3>Python 3 with numpy</h3><p>For the checker, storyboard, agents, and music in code. On newer Ubuntu/Debian systems, <code>pip</code> system package is blocked: use the system package.</p><pre><span class="k">sudo apt install</span> python3-numpy
 <span class="c"># on Mac: python3 -m pip install numpy</span></pre></div>
 <div class="card"><h3>Claude Code or Codex</h3><p>Writes facts, hooks, the script, and scenes. It’s what "uses" the skill: the instructions the kit gives the AI.</p><pre><span class="k">claude</span>   <span class="c"># or: codex</span></pre></div>
-<div class="card"><h3>Local voice (optional, requires a GPU)</h3><p>O <code>voz.py</code> uses Chatterbox (clones your voice from 10–20 s of audio) and Whisper (timestamps each word), running on an NVIDIA graphics card. Specify their locations with the variables below. No GPU? Skip the voice: the reel will have captions and music (<code>montar.py --sem-voz</code>).</p><pre><span class="k">export</span> CHATTERBOX_PYTHON=<span class="s">~/miniconda3/envs/chatterbox/bin/python3</span>
-<span class="k">export</span> INEMAVOX_DIR=<span class="s">~/inemavox</span>   <span class="c"># folder with venv and Whisper</span>
-<span class="k">export</span> VC_VOZ=<span class="s">~/my-voice.wav</span></pre></div>
+<div class="card"><h3>Local voice (optional, requires a GPU)</h3><p>O <code>voz.py</code> uses Chatterbox (clones your voice from 10–20 s of audio) and Whisper (timestamps each word), running on an NVIDIA graphics card. Specify their locations with the variables below. The voice worker comes from <a href="https://github.com/inematds/inemavox" target="_blank" rel="noopener">inemavox</a> (free): clone it and follow its README. No GPU? Skip the voice: the reel will have captions and music (<code>montar.py --sem-voz</code>).</p><pre><span class="k">export</span> CHATTERBOX_PYTHON=<span class="s">~/miniconda3/envs/chatterbox/bin/python3</span>
+<span class="k">export</span> INEMAVOX_DIR=<span class="s">~/inemavox</span>   <span class="c"># folder with venv and Whisper: git clone https://github.com/inematds/inemavox</span>
+<span class="k">export</span> VC_VOZ=<span class="s">~/my-voice.wav</span>   <span class="c"># required: YOUR voice (otherwise it looks for the author’s default voice)</span></pre></div>
 </div>
 </div></section>
 <section id="guia"><div class="wrap">
@@ -226,7 +226,7 @@
 <div class="step"><div class="b">7</div><div>
 <h3>Local voice, synced to the word</h3>
 <p>Records each line and marks the second for each word, so the screen changes on the right word.</p>
-<pre><span class="k">python3</span> ferramentas/voz.py --projeto exemplos/chuveiro exemplos/chuveiro/roteiro.json --simular   <span class="c"># only shows what it will write</span>
+<pre><span class="k">python3</span> ferramentas/voz.py --projeto exemplos/chuveiro exemplos/chuveiro/roteiro.json --simular   <span class="c"># only shows what it will record</span>
 <span class="k">python3</span> ferramentas/voz.py --projeto exemplos/chuveiro exemplos/chuveiro/roteiro.json</pre>
 </div></div>
 <div class="step"><div class="b">8</div><div>

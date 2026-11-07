@@ -180,9 +180,9 @@
 <div class="card"><h3>Python 3 com numpy</h3><p>Para o verificador, o storyboard, os agentes e a música em código. No Ubuntu/Debian novos o <code>pip</code> do sistema é bloqueado: use o pacote do sistema.</p><pre><span class="k">sudo apt install</span> python3-numpy
 <span class="c"># no Mac: python3 -m pip install numpy</span></pre></div>
 <div class="card"><h3>Claude Code ou Codex</h3><p>Escreve fatos, ganchos, roteiro e cenas. É quem "usa" a skill: as instruções que o kit dá à IA.</p><pre><span class="k">claude</span>   <span class="c"># ou: codex</span></pre></div>
-<div class="card"><h3>Voz local (opcional, precisa de GPU)</h3><p>O <code>voz.py</code> usa o Chatterbox (clona a sua voz a partir de 10–20 s de áudio) e o Whisper (marca o tempo de cada palavra), rodando numa placa de vídeo NVIDIA. Diga onde estão com as variáveis abaixo. Sem GPU? Pule a voz: o reel sai com legenda e música (<code>montar.py --sem-voz</code>).</p><pre><span class="k">export</span> CHATTERBOX_PYTHON=<span class="s">~/miniconda3/envs/chatterbox/bin/python3</span>
-<span class="k">export</span> INEMAVOX_DIR=<span class="s">~/inemavox</span>   <span class="c"># pasta com venv e Whisper</span>
-<span class="k">export</span> VC_VOZ=<span class="s">~/minha-voz.wav</span></pre></div>
+<div class="card"><h3>Voz local (opcional, precisa de GPU)</h3><p>O <code>voz.py</code> usa o Chatterbox (clona a sua voz a partir de 10–20 s de áudio) e o Whisper (marca o tempo de cada palavra), rodando numa placa de vídeo NVIDIA. Diga onde estão com as variáveis abaixo. O worker de voz vem do <a href="https://github.com/inematds/inemavox" target="_blank" rel="noopener">inemavox</a> (grátis): clone e siga o README dele. Sem GPU? Pule a voz: o reel sai com legenda e música (<code>montar.py --sem-voz</code>).</p><pre><span class="k">export</span> CHATTERBOX_PYTHON=<span class="s">~/miniconda3/envs/chatterbox/bin/python3</span>
+<span class="k">export</span> INEMAVOX_DIR=<span class="s">~/inemavox</span>   <span class="c"># pasta com venv e Whisper: git clone https://github.com/inematds/inemavox</span>
+<span class="k">export</span> VC_VOZ=<span class="s">~/minha-voz.wav</span>   <span class="c"># obrigatório: a SUA voz (senão ele procura a voz padrão do autor)</span></pre></div>
 </div>
 </div></section>
 <section id="guia"><div class="wrap">
