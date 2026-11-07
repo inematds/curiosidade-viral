@@ -26,7 +26,7 @@ And since going viral is the easy part, the kit includes the rest of the model: 
 | `ferramentas/` | `novo.py`, `gancho_check.py` (checker), `storyboard.py`, `voz.py` (local voice aligned to the word), `montar.py`, `mezcla.py`, `preparar.py` |
 | `motor/` | render base (HyperFrames + Three.js), local fonts |
 | `agentes/` | `curio.md` + `curio_triagem.py`, `clic.md` + `clic_regras.py`, `link.py`, examples |
-| `exemplos/geladeira/` | the demo reel, from script to MP4 |
+| `exemplos/geladeira/` | the demo reel, from script to the reel page (MP4 in [Releases](https://github.com/inematds/curiosidade-viral/releases/tag/video-v1.0.0)) |
 | `docs/caso-e-metodo.md` | the real case (one week, an account from scratch) and what it teaches |
 | `testes/` | `python3 -m unittest discover -s testes` |
 
