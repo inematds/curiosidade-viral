@@ -1,0 +1,11 @@
+{
+ "config": {"teto_dia": 150, "retorno_min": 1.5, "gasto_corte": 30, "passo": 0.25, "min_por_anuncio": 10},
+ "medicao_ok": true,
+ "compradores_excluidos": false,
+ "anuncios": [
+  {"id": "geladeira-h1", "orcamento_dia": 40, "gasto": 82, "vendas": 4, "receita": 178},
+  {"id": "geladeira-h2", "orcamento_dia": 30, "gasto": 35, "vendas": 0, "receita": 0},
+  {"id": "cebola-h1", "orcamento_dia": 30, "gasto": 61, "vendas": 1, "receita": 44},
+  {"id": "mel-h3", "orcamento_dia": 20, "gasto": 12, "vendas": 0, "receita": 0}
+ ]
+}
