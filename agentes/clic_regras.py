@@ -111,8 +111,10 @@ def texto(r: dict) -> str:
     mant = [p["anuncio"] for p in r["propostas"] if p["acao"] == "manter"]
     if mant:
         linhas.append(f"  manter: {', '.join(mant)}")
+    ids = list(dict.fromkeys(p["anuncio"] for p in r["propostas"] if p["acao"] not in ("manter", "trocar")))
+    ex = f"'ok {' '.join(ids[:2])}'" if ids else "'ok'"
     linhas += ["", f"Total proposto: {r['orcamento_total_proposto']:g}/dia (teto {r['teto_dia']:g}).",
-               "Responda em uma linha: 'ok tudo', 'ok A1 A3' ou 'não'."]
+               f"Responda em uma linha: 'ok tudo', {ex} (só esses anúncios) ou 'não'."]
     return "\n".join(linhas)
 
 

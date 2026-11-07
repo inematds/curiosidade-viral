@@ -65,7 +65,12 @@ cd curiosidade-viral
 bash instalar.sh
 ```
 
-Precisa de Node.js 22+, ffmpeg, Python 3 com numpy. Voz local: Chatterbox + Whisper (sua voz em `VC_VOZ=/caminho/voz.wav`).
+Precisa de Node.js 22+, ffmpeg e Python 3 com numpy (Ubuntu/Debian: `sudo apt install python3-numpy`; Mac: `python3 -m pip install numpy`).
+
+**Voz local (opcional, precisa de GPU NVIDIA):** o `voz.py` usa o Chatterbox (clona a sua voz a partir de 10–20 s de áudio) e o
+Whisper (tempo de cada palavra). Aponte onde estão: `CHATTERBOX_PYTHON` (python do ambiente do Chatterbox), `INEMAVOX_DIR`
+(pasta com o venv do Whisper) e `VC_VOZ=/caminho/sua-voz.wav`. Sem GPU, pule a voz: `montar.py --sem-voz` faz o reel com legenda e música.
+
 Nada aqui chama API paga.
 
 ## As 6 lições do caso

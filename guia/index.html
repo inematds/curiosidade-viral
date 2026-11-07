@@ -180,8 +180,12 @@
 <div class="grid g3">
 <div class="card"><h3>Node.js 22+ e ffmpeg</h3><p>O render usa o HyperFrames (baixa sozinho na 1ª vez).</p><pre><span class="k">node</span> --version
 <span class="k">ffmpeg</span> -version</pre></div>
-<div class="card"><h3>Python 3 com numpy</h3><p>Para o verificador, o storyboard, os agentes e a música em código.</p><pre><span class="k">python3</span> -m pip install numpy</pre></div>
-<div class="card"><h3>Claude Code ou Codex</h3><p>Escreve fatos, ganchos, roteiro e cenas. Voz local: Chatterbox + Whisper, com a sua voz em <code>VC_VOZ</code>.</p><pre><span class="k">export</span> VC_VOZ=<span class="s">~/minha-voz.wav</span></pre></div>
+<div class="card"><h3>Python 3 com numpy</h3><p>Para o verificador, o storyboard, os agentes e a música em código. No Ubuntu/Debian novos o <code>pip</code> do sistema é bloqueado: use o pacote do sistema.</p><pre><span class="k">sudo apt install</span> python3-numpy
+<span class="c"># no Mac: python3 -m pip install numpy</span></pre></div>
+<div class="card"><h3>Claude Code ou Codex</h3><p>Escreve fatos, ganchos, roteiro e cenas. É quem "usa" a skill: as instruções que o kit dá à IA.</p><pre><span class="k">claude</span>   <span class="c"># ou: codex</span></pre></div>
+    <div class="card"><h3>Voz local (opcional, precisa de GPU)</h3><p>O <code>voz.py</code> usa o Chatterbox (clona a sua voz a partir de 10–20 s de áudio) e o Whisper (marca o tempo de cada palavra), rodando numa placa de vídeo NVIDIA. Diga onde estão com as variáveis abaixo. Sem GPU? Pule a voz: o reel sai com legenda e música (<code>montar.py --sem-voz</code>).</p><pre><span class="k">export</span> CHATTERBOX_PYTHON=<span class="s">~/miniconda3/envs/chatterbox/bin/python3</span>
+<span class="k">export</span> INEMAVOX_DIR=<span class="s">~/inemavox</span>   <span class="c"># pasta com venv e Whisper</span>
+<span class="k">export</span> VC_VOZ=<span class="s">~/minha-voz.wav</span></pre></div>
 </div>
 </div></section>
 <section id="guia"><div class="wrap">
@@ -215,6 +219,7 @@
 <h3>Rode o verificador</h3>
 <p>Acusa começo com data ou "segundo um estudo", tom de notícia, "eu/meu canal", ganchos com a mesma forma, número sem fonte, duração passando, fecho faltando, hashtag no post.</p>
 <pre><span class="k">python3</span> ferramentas/gancho_check.py exemplos/chuveiro   <span class="c"># OK = 0 erro</span></pre>
+    <p>Logo depois do passo 2 ele acusa vários erros (está tudo vazio): é o esperado. Rode de novo depois do passo 4.</p>
 </div></div>
 <div class="step"><div class="b">6</div><div>
 <h3>Aprove o storyboard</h3>
@@ -224,7 +229,8 @@
 <div class="step"><div class="b">7</div><div>
 <h3>Voz local, presa à palavra</h3>
 <p>Grava cada frase e marca o segundo de cada palavra, para a tela mudar na palavra certa.</p>
-<pre><span class="k">python3</span> ferramentas/voz.py --projeto exemplos/chuveiro exemplos/chuveiro/roteiro.json</pre>
+<pre><span class="k">python3</span> ferramentas/voz.py --projeto exemplos/chuveiro exemplos/chuveiro/roteiro.json --simular   <span class="c"># só mostra o que vai gravar</span>
+<span class="k">python3</span> ferramentas/voz.py --projeto exemplos/chuveiro exemplos/chuveiro/roteiro.json</pre>
 </div></div>
 <div class="step"><div class="b">8</div><div>
 <h3>Imagens e cenas</h3>
@@ -233,11 +239,16 @@
 </div></div>
 <div class="step"><div class="b">9</div><div>
 <h3>Relógio, música e render</h3>
-<p>Confira os quadros parados antes de gastar o render.</p>
+<p>Antes do render (uns 5 minutos), tire quadros parados e olhe cada cena.</p>
 <pre><span class="k">python3</span> ferramentas/montar.py --projeto exemplos/chuveiro
 <span class="k">python3</span> ferramentas/mezcla.py --projeto exemplos/chuveiro --id chuveiro --musica tranquila
 <span class="k">python3</span> ferramentas/preparar.py --projeto exemplos/chuveiro
-<span class="k">cd</span> exemplos/chuveiro <span class="k">&amp;&amp;</span> npx hyperframes check <span class="k">&amp;&amp;</span> npx hyperframes render --output renders/chuveiro.mp4</pre>
+<span class="c"># sem GPU: montar.py --projeto exemplos/chuveiro --sem-voz</span>
+<span class="k">cd</span> exemplos/chuveiro
+<span class="k">npx</span> hyperframes check
+<span class="k">npx</span> hyperframes snapshot --at 0,5,12,20 -o stills   <span class="c"># olhe as imagens em stills/</span>
+<span class="k">npx</span> hyperframes render --output renders/chuveiro.mp4
+<span class="k">cd</span> ../..   <span class="c"># volta para a pasta do kit</span></pre>
 </div></div>
 <div class="step"><div class="b">10</div><div>
 <h3>Link etiquetado e post à mão</h3>
@@ -256,7 +267,17 @@
 <div class="card"><h3>📈 Clic — os anúncios</h3><p>1. sem OK não gasta · 2. teto por dia · 3. só sobe com retorno de 1,5 vez ou mais · 4. corta rápido o que não vende. E dois alarmes: medição quebrada e verba espalhada.</p>
 <pre><span class="k">python3</span> agentes/clic_regras.py agentes/exemplos/metricas.json</pre></div>
 </div>
-<pre style="margin-top:18px"><span class="c"># saída do Clic com o exemplo do kit</span>
+<h3 style="margin-top:22px">De onde vêm os dados</h3>
+  <p>Os agentes não entram na sua conta: você (ou a ferramenta que você já usa) exporta os dados para dois arquivos simples. O kit traz os dois de exemplo em <code>agentes/exemplos/</code>.</p>
+  <div class="grid g3" style="grid-template-columns:1fr 1fr">
+    <div class="card"><h3>mensagens.json (Curio)</h3><p>As DMs e os comentários novos, copiados à mão ou exportados da rede.</p><pre>[{"id": "d1", "de": "@marina", "onde": "dm",
+  "texto": "Como você faz esses vídeos?"}]</pre></div>
+    <div class="card"><h3>metricas.json (Clic)</h3><p>Do gerenciador de anúncios (gasto, orçamento) e da sua loja (vendas, receita), na mesma moeda.</p><pre>{"config": {"teto_dia": 150, "retorno_min": 1.5},
+ "medicao_ok": true, "compradores_excluidos": true,
+ "anuncios": [{"id": "geladeira-h1", "orcamento_dia": 40,
+   "gasto": 82, "vendas": 4, "receita": 178}]}</pre></div>
+  </div>
+<pre style="margin-top:18px"><span class="c"># saída do Clic com o exemplo do kit (as ferramentas respondem em português)</span>
 Clic · proposta de anúncios (nada muda sem o seu OK)
 ⚠ Quem já comprou ainda vê o anúncio: exclua os compradores do público.
   SUBIR    geladeira-h1: 40 → 50/dia · retorno 2.17 ≥ 1.5 com 4 venda(s)
@@ -287,6 +308,22 @@ Total proposto: 85/dia (teto 150).</pre>
 <div class="card"><h3>6. O orgânico também vende</h3><p>A bio vendeu 7 vezes sem nenhum anúncio.</p></div>
 </div>
 </div></section>
+<section id="termos"><div class="wrap">
+  <span class="chip">Termos</span>
+  <h2>Palavras que aparecem no guia</h2>
+  <div class="grid g3">
+    <div class="card"><h3>Skill</h3><p>Uma pasta de instruções que o Claude Code ou o Codex segue para fazer uma tarefa. Aqui, fazer o reel.</p></div>
+    <div class="card"><h3>Gancho</h3><p>A primeira frase e a primeira imagem do reel: o que faz alguém parar de rolar.</p></div>
+    <div class="card"><h3>Storyboard</h3><p>O reel desenhado em fichas, cena por cena, antes de existir.</p></div>
+    <div class="card"><h3>slug</h3><p>O nome curto da pasta do reel, sem espaço nem acento (ex.: <code>chuveiro</code>).</p></div>
+    <div class="card"><h3>pie.txt</h3><p>O texto que vai na legenda do post.</p></div>
+    <div class="card"><h3>Laço de curiosidade</h3><p>Cada frase responde a anterior e abre uma pergunta nova, até a resposta final.</p></div>
+    <div class="card"><h3>HyperFrames</h3><p>A ferramenta que transforma uma página web animada num vídeo MP4.</p></div>
+    <div class="card"><h3>Retorno 1,5 vez</h3><p>Para cada 10 gastos no anúncio, voltaram 15 em vendas.</p></div>
+    <div class="card"><h3>Link etiquetado (UTM)</h3><p>O mesmo link com um final que diz de onde a pessoa veio (qual reel, bio ou DM).</p></div>
+  </div>
+</div></section>
+
 <footer>
 <div class="wrap">
 <div class="pill">Claude Code / Codex</div><div class="pill">HyperFrames</div><div class="pill">voz local</div><div class="pill">Python</div>

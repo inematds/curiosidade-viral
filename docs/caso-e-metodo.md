@@ -8,7 +8,7 @@ Os números são dele, de uma semana, e não são promessa de renda.
 1. **Formato repetível → skill.** Ele passou 3 a 5 reels de curiosidades ao Claude: "desmonta estrutura,
    ganchos, ritmo, cena a cena, e cria uma skill que faça tudo". Saíram reels sem rosto: uma voz explica
    e a tela mostra a coisa real (lava-louças, cebola, mel, juntas dos dedos).
-2. **Resultado:** conta nova (18/10), 14 a 17 reels, um com 4,4–4,5 M de views, 0 → ~19 mil seguidores em uma semana.
+2. **Resultado:** conta nova (18/10), 14 a 17 reels; o reel da lava-louças passou de 4,4 milhões de views, 0 → ~19 mil seguidores em uma semana.
 3. **Ganho de alcance ao postar à mão:** quando o agente passou a postar sozinho, as views caíram; voltou ao manual.
    (É o que ele observou, sem teste controlado.)
 4. **Monetização:** o produto é a própria skill (39 €, depois 59 €), com landing + Stripe + Meta Ads.
