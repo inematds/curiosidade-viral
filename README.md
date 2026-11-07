@@ -1,5 +1,15 @@
 # curiosidade-viral
 
+[![Curiosidade viral](guia/assets/banner.jpg)](https://inematds.github.io/curiosidade-viral/guia/)
+
+**🇧🇷 [Português](README.md) · 🇺🇸 [English](README.en.md) · 🇪🇸 [Español](README.es.md)**
+
+## O que é
+
+O curiosidade-viral é um kit (uma "skill" para o Claude Code ou o Codex) que faz reels verticais de curiosidade sem aparecer ninguém: uma voz explica e a tela mostra, de perto, um objeto do dia a dia. Serve para quem quer criar uma conta de conteúdo curto sem gravar e sem editar. O kit confere o gancho antes de gastar, pede a sua aprovação num storyboard, grava a voz no seu computador e monta o vídeo em código. Traz também dois agentes que leem mensagens e números de anúncios e só propõem. Precisa de Node.js, ffmpeg, Python e o Claude Code ou o Codex.
+
+📖 Guia completo: **https://inematds.github.io/curiosidade-viral/guia/**
+
 **Reels de curiosidade sem rosto feitos por IA, e o modelo que transforma views em resultado.**
 
 Uma voz explica e a tela mostra, grande e com textura, a coisa do dia a dia (a geladeira, a cebola, o celular), com o
@@ -9,7 +19,6 @@ storyboard para você aprovar e só então grava a voz (local) e renderiza o ví
 E como viralizar é a parte fácil, o kit traz o resto do modelo: **dois agentes que só propõem** (Curio cuida da conta,
 Clic cuida dos anúncios com 4 regras escritas em código) e o **link etiquetado por reel**, para saber o que trouxe cada pessoa.
 
-Guia completo: **https://inematds.github.io/curiosidade-viral/guia/** · English: [README.en.md](README.en.md) · Español: [README.es.md](README.es.md)
 
 ## O que tem aqui
 

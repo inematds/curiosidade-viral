@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>curiosidade-viral — reels de curiosidade sem rosto feitos por IA</title>
+<meta content="Kit grátis do INEMA: reels de curiosidade sem rosto feitos por IA, com gancho conferido, storyboard antes de gastar, voz local e dois agentes que só propõem." name="description"/>
+
+
+
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --bg:#0c0c10; --bg2:#14141b; --card:#16161e; --line:#272730;
+    --txt:#e9e9ee; --mut:#9a9aa6; --amb:#E2A23B; --amb2:#f0c070; --sky:#38bdf8; --pro:#cbd5e1;
+    color-scheme:dark;
+  }
+  body.light{
+    --bg:#f6f7f9; --bg2:#eceef2; --card:#ffffff; --line:#e1e3ea;
+    --txt:#1a1a22; --mut:#5b5b68; --amb:#b9791d; --amb2:#a16207; --sky:#0369a1; --pro:#b45309;
+    color-scheme:light;
+  }
+  body.light .hero .glow{opacity:.5}
+  body.light pre{background:#0e0e14;color:#d6d6e0}
+  body.light pre .c{color:#8a8a98}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.65 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:Sora,sans-serif;line-height:1.15;margin:0}
+  a{color:var(--amb);text-decoration:none}
+  code,pre{font-family:"JetBrains Mono",monospace}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 22px}
+  .mut{color:var(--mut)} .amb{color:var(--amb)}
+  .chip{display:inline-block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amb);font-weight:600;font-family:Sora}
+  nav{position:sticky;top:0;z-index:30;backdrop-filter:blur(12px);background:rgba(12,12,16,.78);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;gap:22px;height:60px}
+  nav .brand{display:flex;align-items:center;gap:8px;font-family:Sora;font-weight:800;letter-spacing:-.02em;color:var(--amb)}
+  nav .brand .emoji{font-size:1.25rem}
+  nav .sep{color:var(--mut);opacity:.45}
+  nav .inema{color:var(--sky);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .inema:hover{filter:brightness(1.15)}
+  nav .pro{color:var(--pro);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .pro:hover{filter:brightness(1.15)}
+  nav .clubpro{display:inline-flex;align-items:center;gap:6px}
+  nav .links{margin-left:auto;display:flex;align-items:center;gap:20px;font-size:.92rem}
+  nav .links a.sec{color:var(--mut)} nav .links a.sec:hover{color:var(--txt)}
+  .lang{display:inline-flex;gap:2px;font-family:Sora;font-size:.78rem}
+  .lang a{color:var(--mut);padding:.2em .45em;border-radius:6px} .lang a.on{color:var(--amb);background:rgba(226,162,59,.12)}
+  .tgl{background:var(--bg2);border:1px solid var(--line);color:var(--txt);width:38px;height:38px;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:1.05rem}
+  .tgl:hover{border-color:var(--amb)}
+  .btn{display:inline-block;background:var(--amb);color:#1a1206;font-weight:600;padding:.6em 1.05em;border-radius:10px;font-family:Sora}
+  .btn.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}
+  @media(max-width:760px){nav .links a.sec{display:none}}
+  @media(max-width:520px){nav .wrap{gap:8px;padding:8px 14px;height:auto;flex-wrap:wrap} nav .links{gap:8px;margin-left:0;width:100%;justify-content:space-between} nav .btn{padding:.45em .7em;font-size:.82rem} .tgl{width:34px;height:34px}}
+  .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+  .hero .glow{position:absolute;inset:-40% -20% auto auto;width:70%;height:600px;background:radial-gradient(closest-side,rgba(226,162,59,.22),transparent 70%);pointer-events:none}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:74px 22px}
+  .hero h1{font-size:clamp(2.2rem,5vw,3.5rem);font-weight:800;letter-spacing:-.025em}
+  .hero p.lead{font-size:1.18rem;color:var(--mut);margin:1.1em 0 1.6em;max-width:34ch}
+  .hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+  .hero figure{margin:0;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000}
+  .hero figure img{width:100%;height:auto;display:block}
+  .resumo{padding:38px 0 34px;border-bottom:1px solid var(--line)}
+  .resumo p{font-size:1.12rem;line-height:1.7;max-width:74ch;margin:.55em 0 0}
+  @media(max-width:780px){.hero .wrap{grid-template-columns:1fr;padding:48px 22px}}
+  section{padding:62px 0;border-bottom:1px solid var(--line)}
+  section h2{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:800;letter-spacing:-.02em}
+  section .sub{color:var(--mut);margin:.6em 0 2em;max-width:62ch}
+  .grid{display:grid;gap:16px}
+  .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)} .g2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:820px){.g3,.g4{grid-template-columns:1fr 1fr}}
+  @media(max-width:540px){.g2,.g3,.g4{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .card h3{font-size:1.05rem;margin-bottom:.4em}
+  .card p{color:var(--mut);font-size:.92rem;margin:0}
+  .num{display:inline-flex;width:30px;height:30px;align-items:center;justify-content:center;border-radius:8px;background:rgba(226,162,59,.14);color:var(--amb);font-family:Sora;font-weight:800;font-size:.9rem;margin-bottom:.7em}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+  .flow span{background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:.45em .9em;font-size:.85rem;font-family:Sora;font-weight:600}
+  .flow .arr{color:var(--amb);border:none;background:none;padding:0 .1em}
+  pre{background:#0a0a0e;border:1px solid var(--line);border-radius:12px;padding:16px 18px;overflow:auto;font-size:.86rem;line-height:1.6;color:#d6d6e0}
+  pre .c{color:#6f6f7c} pre .k{color:var(--amb2)} pre .s{color:#9ece6a}
+  .step{display:grid;grid-template-columns:46px minmax(0,1fr);gap:16px;margin-bottom:26px}
+  .step>div,.card{min-width:0}
+  p code,li code,td code{overflow-wrap:anywhere}
+  .step .b{width:46px;height:46px;border-radius:12px;background:var(--amb);color:#1a1206;font-family:Sora;font-weight:800;font-size:1.25rem;display:flex;align-items:center;justify-content:center}
+  .step h3{font-size:1.12rem;margin-bottom:.3em}
+  .step p{color:var(--mut);margin:.2em 0 .7em}
+  .ex{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:680px){.ex{grid-template-columns:1fr}}
+  .ex figure{margin:0;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+  .ex figure img{width:100%;height:auto;display:block}
+  .ex figcaption{padding:12px 14px;font-size:.88rem;color:var(--mut);background:var(--card)}
+  .phase{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+  .phase:last-child{border:none}
+  .phase .tag{flex:0 0 92px;font-family:Sora;font-weight:800;color:var(--amb)}
+  .phase .d strong{display:block;margin-bottom:.2em}
+  .phase .d span{color:var(--mut);font-size:.92rem}
+  footer{padding:46px 0;text-align:center;color:var(--mut);font-size:.9rem}
+  .pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.3em .8em;font-size:.78rem;color:var(--mut);margin:0 4px}
+</style>
+<link href="https://inematds.github.io/curiosidade-viral/guia/" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/curiosidade-viral/guia/en/" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/curiosidade-viral/guia/es/" hreflang="es" rel="alternate"/></head>
+<body>
+<nav><div class="wrap">
+<a class="brand" href="#top"><span class="emoji">🧊</span> curiosidade-viral</a>
+<span class="sep">|</span>
+<span class="clubpro">
+<a class="inema" href="https://inema.club" rel="noopener" target="_blank">INEMA.CLUB</a>
+<span class="sep">-</span>
+<a class="pro" href="https://inema.pro" rel="noopener" target="_blank">PRO</a>
+</span>
+<div class="links">
+<a class="sec" href="#oque">O que é</a>
+<a class="sec" href="#fluxo">Como funciona</a>
+<a class="sec" href="#guia">Guia de uso</a>
+<a class="sec" href="#agentes">Agentes</a>
+<a class="sec" href="#licoes">Lições</a>
+<span class="lang"><a class="on" href="./">PT</a><a href="en/">EN</a><a href="es/">ES</a></span>
+<button aria-label="Alternar tema" class="tgl" id="themeToggle" title="Alternar tema">🌙</button>
+<a class="btn" href="https://github.com/inematds/curiosidade-viral" rel="noopener" target="_blank">GitHub</a>
+</div>
+</div></nav>
+<header class="hero" id="top">
+<div class="glow"></div>
+<div class="wrap">
+<div>
+<span class="chip">Kit grátis · reel sem rosto · agentes que só propõem</span>
+<h1>Reels de curiosidade que a IA faz. E o modelo que faz a view <span class="amb">valer</span>.</h1>
+<p class="lead">Você dá a pergunta ("por que a geladeira esquenta a cozinha?"). A IA pesquisa com fonte, escreve 4 ganchos, mostra o storyboard e só depois grava a voz e monta o vídeo. Dois agentes cuidam da conta e dos anúncios, sem gastar nada sem o seu OK.</p>
+<div class="cta">
+<a class="btn" href="#guia">Começar o guia</a>
+<a class="btn ghost" href="https://github.com/inematds/curiosidade-viral" rel="noopener" target="_blank">Ver no GitHub</a>
+</div>
+</div>
+<figure><img alt="Banner: Curiosidade viral — reels sem rosto feitos por IA" src="assets/banner.jpg"/></figure>
+</div>
+</header>
+<section class="resumo" id="resumo"><div class="wrap">
+<span class="chip">Em resumo</span>
+<p>O curiosidade-viral é um kit (uma "skill" para o Claude Code ou o Codex) que faz reels verticais de curiosidade sem aparecer ninguém: uma voz explica e a tela mostra, de perto, um objeto do dia a dia. Serve para quem quer criar uma conta de conteúdo curto sem gravar e sem editar. O kit confere o gancho antes de gastar, pede a sua aprovação num storyboard, grava a voz no seu computador e monta o vídeo em código. Traz também dois agentes que leem mensagens e números de anúncios e só propõem. Precisa de Node.js, ffmpeg, Python e o Claude Code ou o Codex.</p>
+</div></section>
+<section id="oque"><div class="wrap">
+<span class="chip">O que é</span>
+<h2>Viralizar virou a parte fácil. O kit cuida das duas partes.</h2>
+<p class="sub">Num experimento real de uma semana, uma conta que começou do zero teve um reel com mais de 4 milhões de visualizações e chegou a cerca de 19 mil seguidores. O que fez diferença depois foi o modelo: o que oferecer, como medir e quem decide.</p>
+<figure style="margin:0 0 26px;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000"><img alt="As peças do kit: gancho com 5 testes, storyboard, voz local, agente da conta, agente dos anúncios, link por reel" loading="lazy" src="assets/banner-grade.jpg" style="width:100%;display:block"/></figure>
+<div class="grid g3">
+<div class="card"><h3>🎣 Gancho que passa em 5 testes</h3><p>O estranho vem primeiro, é algo da pessoa, deixa uma pergunta, entende de primeira e funciona sem som. Você escreve 4 e compara de dois em dois.</p></div>
+<div class="card"><h3>🗂️ Storyboard antes de gastar</h3><p>Uma ficha por cena com esboço, frases, tempo e o que se vê. Voz, imagens e render só começam depois do seu "pode fazer".</p></div>
+<div class="card"><h3>🤝 Dois agentes que só propõem</h3><p>Curio separa as mensagens e prepara as respostas. Clic lê os anúncios e propõe cortar ou subir, com as 4 regras escritas em código.</p></div>
+</div>
+</div></section>
+<section id="fluxo"><div class="wrap">
+<span class="chip">Como funciona</span>
+<h2>Da pergunta ao reel, com uma parada só</h2>
+<p class="sub">A parada é o storyboard. Antes dele nada custa; depois dele o resto é script.</p>
+<div class="flow">
+<span>Pergunta</span><span class="arr">→</span>
+<span>Fatos com fonte</span><span class="arr">→</span>
+<span>4 ganchos</span><span class="arr">→</span>
+<span>Verificador</span><span class="arr">→</span>
+<span>Storyboard ✋</span><span class="arr">→</span>
+<span>Voz local</span><span class="arr">→</span>
+<span>Imagens + cenas</span><span class="arr">→</span>
+<span>Render</span><span class="arr">→</span>
+<span>Postar à mão</span>
+</div>
+<div class="grid g3" style="margin-top:26px">
+<div class="card"><h3>A coisa sempre na tela</h3><p>O objeto do gancho aparece grande em quase toda cena. Primeiro como a pessoa conhece, depois por dentro.</p></div>
+<div class="card"><h3>O invisível desenhado</h3><p>Calor, força, corrente: desenhados por cima do real, numa cor só. O errado em vermelho. Número com a fonte em cinza.</p></div>
+<div class="card"><h3>O fecho se vê</h3><p>A câmera recua até o reel virar um celular e um dedo toca "Enviar". A legenda fica em cima, longe dos botões da rede.</p></div>
+</div>
+</div></section>
+<section id="pre"><div class="wrap">
+<span class="chip">Pré-requisitos</span>
+<h2>O que precisa estar instalado</h2>
+<p class="sub">Nada aqui chama API paga. A voz roda no seu computador.</p>
+<div class="grid g3">
+<div class="card"><h3>Node.js 22+ e ffmpeg</h3><p>O render usa o HyperFrames (baixa sozinho na 1ª vez).</p><pre><span class="k">node</span> --version
+<span class="k">ffmpeg</span> -version</pre></div>
+<div class="card"><h3>Python 3 com numpy</h3><p>Para o verificador, o storyboard, os agentes e a música em código.</p><pre><span class="k">python3</span> -m pip install numpy</pre></div>
+<div class="card"><h3>Claude Code ou Codex</h3><p>Escreve fatos, ganchos, roteiro e cenas. Voz local: Chatterbox + Whisper, com a sua voz em <code>VC_VOZ</code>.</p><pre><span class="k">export</span> VC_VOZ=<span class="s">~/minha-voz.wav</span></pre></div>
+</div>
+</div></section>
+<section id="guia"><div class="wrap">
+<span class="chip">Guia de uso · passo a passo</span>
+<h2>Seu primeiro reel</h2>
+<p class="sub">Rode na pasta do kit. Os passos 3, 4, 8 e 9 você pede ao Claude Code ou ao Codex; o resto é comando.</p>
+<div class="step"><div class="b">1</div><div>
+<h3>Instale</h3>
+<p>Liga a skill no Claude Code e no Codex, roda os testes e cria o seu <code>preferencias.md</code> (público e fecho).</p>
+<pre><span class="k">git clone</span> <span class="s">https://github.com/inematds/curiosidade-viral.git</span>
+<span class="k">cd</span> curiosidade-viral
+<span class="k">bash</span> instalar.sh</pre>
+</div></div>
+<div class="step"><div class="b">2</div><div>
+<h3>Crie a pasta do reel</h3>
+<p>Um nome curto e a pergunta. Sai <code>exemplos/&lt;nome&gt;/</code> com <code>roteiro.json</code>, <code>fatos.md</code> e <code>pie.txt</code> para preencher.</p>
+<pre><span class="k">python3</span> ferramentas/novo.py chuveiro <span class="s">"por que o chuveiro fica frio quando alguém abre a torneira?"</span> --duracao 30</pre>
+</div></div>
+<div class="step"><div class="b">3</div><div>
+<h3>Fatos primeiro</h3>
+<p>Peça à IA: "preencha o fatos.md com fonte". Cada número com valor, a frase exata, o link e a data. Sem fonte, fica de fora.</p>
+<pre><span class="c"># no Claude Code, dentro da pasta do kit:</span>
+<span class="c">faz o fatos.md do exemplos/chuveiro seguindo o SKILL.md</span></pre>
+</div></div>
+<div class="step"><div class="b">4</div><div>
+<h3>4 ganchos e o roteiro</h3>
+<p>A IA escreve 4 ganchos, cada um de uma forma (contrário, objeto, número, pessoal, pergunta), o roteiro em laço de curiosidade e as cenas. As regras estão em <code>metodo/gancho.md</code> e <code>metodo/roteiro.md</code>.</p>
+<pre><span class="c">escreve os 4 ganchos e o roteiro do exemplos/chuveiro</span></pre>
+</div></div>
+<div class="step"><div class="b">5</div><div>
+<h3>Rode o verificador</h3>
+<p>Acusa começo com data ou "segundo um estudo", tom de notícia, "eu/meu canal", ganchos com a mesma forma, número sem fonte, duração passando, fecho faltando, hashtag no post.</p>
+<pre><span class="k">python3</span> ferramentas/gancho_check.py exemplos/chuveiro   <span class="c"># OK = 0 erro</span></pre>
+</div></div>
+<div class="step"><div class="b">6</div><div>
+<h3>Aprove o storyboard</h3>
+<p>A única parada. Uma ficha por cena com esboço, frases (chave destacada), tempo, entrada e som; no topo, o gancho e os 3 de reserva. Aprove, mude uma cena ou troque o gancho.</p>
+<pre><span class="k">python3</span> ferramentas/storyboard.py exemplos/chuveiro --abrir</pre>
+</div></div>
+<div class="step"><div class="b">7</div><div>
+<h3>Voz local, presa à palavra</h3>
+<p>Grava cada frase e marca o segundo de cada palavra, para a tela mudar na palavra certa.</p>
+<pre><span class="k">python3</span> ferramentas/voz.py --projeto exemplos/chuveiro exemplos/chuveiro/roteiro.json</pre>
+</div></div>
+<div class="step"><div class="b">8</div><div>
+<h3>Imagens e cenas</h3>
+<p>3 a 5 vistas da MESMA coisa (fotos suas ou geradas pelo Codex), luz neutra, sem texto. A IA monta a página do reel copiando o exemplo da geladeira.</p>
+<pre><span class="c">monta as cenas do exemplos/chuveiro a partir do exemplos/geladeira</span></pre>
+</div></div>
+<div class="step"><div class="b">9</div><div>
+<h3>Relógio, música e render</h3>
+<p>Confira os quadros parados antes de gastar o render.</p>
+<pre><span class="k">python3</span> ferramentas/montar.py --projeto exemplos/chuveiro
+<span class="k">python3</span> ferramentas/mezcla.py --projeto exemplos/chuveiro --id chuveiro --musica tranquila
+<span class="k">python3</span> ferramentas/preparar.py --projeto exemplos/chuveiro
+<span class="k">cd</span> exemplos/chuveiro <span class="k">&amp;&amp;</span> npx hyperframes check <span class="k">&amp;&amp;</span> npx hyperframes render --output renders/chuveiro.mp4</pre>
+</div></div>
+<div class="step"><div class="b">10</div><div>
+<h3>Link etiquetado e post à mão</h3>
+<p>Um link por reel, para saber o que trouxe cada pessoa. Poste pelo celular: no caso real, o post automático derrubou o alcance.</p>
+<pre><span class="k">python3</span> agentes/link.py <span class="s">https://seu-site.com</span> --conta minhaconta --onde reel --reel chuveiro</pre>
+</div></div>
+</div></section>
+<section id="agentes"><div class="wrap">
+<span class="chip">Os dois agentes</span>
+<h2>Eles propõem. Você decide.</h2>
+<p class="sub">As regras estão no código, não só no prompt: o agente não consegue esquecer uma delas. Fichas para colar no seu agente: <code>agentes/curio.md</code> e <code>agentes/clic.md</code>.</p>
+<div class="grid g3" style="grid-template-columns:1fr 1fr">
+<div class="card"><h3>💬 Curio — a conta</h3><p>Separa DMs e comentários: "como faz?" ganha resposta pronta com o link; queixa, reembolso e marca vão para você; elogio, curtir. Só avisa quando há novidade.</p>
+<pre><span class="k">python3</span> agentes/curio_triagem.py agentes/exemplos/mensagens.json \
+  --link <span class="s">"https://seu-site.com/?utm_medium=dm"</span> --estado curio.json</pre></div>
+<div class="card"><h3>📈 Clic — os anúncios</h3><p>1. sem OK não gasta · 2. teto por dia · 3. só sobe com retorno de 1,5 vez ou mais · 4. corta rápido o que não vende. E dois alarmes: medição quebrada e verba espalhada.</p>
+<pre><span class="k">python3</span> agentes/clic_regras.py agentes/exemplos/metricas.json</pre></div>
+</div>
+<pre style="margin-top:18px"><span class="c"># saída do Clic com o exemplo do kit</span>
+Clic · proposta de anúncios (nada muda sem o seu OK)
+⚠ Quem já comprou ainda vê o anúncio: exclua os compradores do público.
+  SUBIR    geladeira-h1: 40 → 50/dia · retorno 2.17 ≥ 1.5 com 4 venda(s)
+  CORTAR   geladeira-h2: 30 → 0/dia · gastou 35 sem nenhuma venda (limite 30)
+  ↻ geladeira-h2: subir um anúncio novo com outro gancho da reserva no lugar
+  REDUZIR  cebola-h1: 30 → 15/dia · vende, mas devolve menos do que custa (retorno 0.72)
+Total proposto: 85/dia (teto 150).</pre>
+</div></section>
+<!--EXEMPLOS <section id="exemplos"><div class="wrap">
+<span class="chip">Exemplo</span>
+<h2>O reel da geladeira</h2>
+<p class="sub">O exemplo completo está em <code>exemplos/geladeira/</code>: fatos, 4 ganchos, roteiro, storyboard, voz e render.</p>
+<div class="ex">
+<figure><img alt="Storyboard do reel da geladeira" loading="lazy" src="assets/ex1.jpg"/><figcaption>O storyboard: uma ficha por cena, aprovada antes de gastar.</figcaption></figure>
+<figure><img alt="Quadro 0 do reel da geladeira" loading="lazy" src="assets/ex2.jpg"/><figcaption>O quadro 0: a coisa do gancho grande e o texto que a nomeia.</figcaption></figure>
+</div>
+</div></section> EXEMPLOS-->
+<section id="licoes"><div class="wrap">
+<span class="chip">O caso real</span>
+<h2>As 6 lições de uma semana</h2>
+<p class="sub">Números de um experimento de uma semana, não promessa de resultado.</p>
+<div class="grid g3">
+<div class="card"><h3>1. Ofereça o que você já ensina</h3><p>A pergunta que mais chegava era "como você faz isso?". O que ofereceu foi justamente isso.</p></div>
+<div class="card"><h3>2. Meça desde o primeiro minuto</h3><p>Num dia sem medir, 19 pessoas abriram o pagamento e nenhuma comprou. Sem medição, nada sobe.</p></div>
+<div class="card"><h3>3. Concentre a verba</h3><p>Poucos anúncios com verba devolveram cerca de 2 vezes o gasto; muitos com pouca verba, cerca de metade.</p></div>
+<div class="card"><h3>4. Etiquete cada link</h3><p>Venda que não sabe de onde veio não dá para repetir.</p></div>
+<div class="card"><h3>5. Automatize o atendimento, não as decisões</h3><p>Os agentes respondem e vigiam. O dinheiro, você decide.</p></div>
+<div class="card"><h3>6. O orgânico também vende</h3><p>A bio vendeu 7 vezes sem nenhum anúncio.</p></div>
+</div>
+</div></section>
+<footer>
+<div class="wrap">
+<div class="pill">Claude Code / Codex</div><div class="pill">HyperFrames</div><div class="pill">voz local</div><div class="pill">Python</div>
+<p style="margin-top:18px">curiosidade-viral · kit grátis do INEMA, licença MIT ·
+      <a href="https://github.com/inematds/curiosidade-viral">inematds/curiosidade-viral</a> ·
+      <a href="https://inema.club">INEMA.CLUB</a></p>
+</div>
+</footer>
+<script>
+  (function(){
+    var KEY='curiosidade-viral-theme';
+    var b=document.body, t=document.getElementById('themeToggle');
+    if(localStorage.getItem(KEY)==='light'){ b.classList.add('light'); t.textContent='☀️'; }
+    t.addEventListener('click',function(){
+      var light=b.classList.toggle('light');
+      t.textContent=light?'☀️':'🌙';
+      localStorage.setItem(KEY, light?'light':'dark');
+    });
+  })();
+</script>
+</body>
+</html>

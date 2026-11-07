@@ -1,12 +1,21 @@
 # curiosidade-viral
 
+[![Viral curiosity](guia/assets/banner-en.jpg)](https://inematds.github.io/curiosidade-viral/guia/en/)
+
+**🇧🇷 [Português](README.md) · 🇺🇸 [English](README.en.md) · 🇪🇸 [Español](README.es.md)**
+
+## What it is
+
+curiosidade-viral is a kit (a "skill" for Claude Code or Codex) that makes vertical curiosity reels without anyone appearing on camera: a voice explains while the screen shows an everyday object up close. It’s for anyone who wants to create a short-form content account without filming or editing. The kit checks the hook before you spend, asks for your approval on a storyboard, records the voice on your computer, and assembles the video with code. It also includes two agents that read messages and ad metrics and only make recommendations. You need Node.js, ffmpeg, Python, and Claude Code or Codex.
+
+📖 Full guide: **https://inematds.github.io/curiosidade-viral/guia/en/**
+
 **Faceless AI curiosity reels, and the model that turns views into results.**
 
 A voice explains while the screen shows an everyday object (the refrigerator, the onion, the phone) large and textured, with the invisible drawn over it. You provide the question; AI researches the facts with sources, writes 4 hooks, assembles the storyboard for your approval, and only then records the voice (locally) and renders the video (in code, without video AI).
 
 And since going viral is the easy part, the kit includes the rest of the model: **two agents that only make recommendations** (Curio takes care of the account, Clic takes care of the ads with 4 rules written in code) and the **link tagged for each reel**, so you can see what brought each person in.
 
-Complete guide: **https://inematds.github.io/curiosidade-viral/guia/** · Português: [README.md](README.md) · Español: [README.es.md](README.es.md)
 
 ## What’s included
 
