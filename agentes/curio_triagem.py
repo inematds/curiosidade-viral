@@ -82,7 +82,7 @@ def texto(r):
         out.append("")
     cf = [i for i in r["itens"] if i["classe"] == "como_faz"]
     if cf:
-        out.append(f"{len(cf)} perguntaram como faz. Respostas propostas (responda 'ok' para enviar todas):")
+        out.append(f"{len(cf)} perguntaram como faz. Respostas propostas (copie e envie; ou deixe seu agente enviar com o seu ok):")
         for i in cf:
             out.append(f"  {i['de']} ({i['onde']}): {i['proposta']}")
     el = sum(1 for i in r["itens"] if i["classe"] == "elogio")

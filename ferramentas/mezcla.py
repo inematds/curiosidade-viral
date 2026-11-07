@@ -206,8 +206,10 @@ def main():
         voz = np.concatenate([voz, np.zeros(int(cola * SR))]); dur = len(voz) / SR
     elif a.duracion:
         dur = a.duracion
+    elif tiempos and tiempos.get("duracion"):  # tempos estimados pelo montar.py --sem-voz
+        dur = tiempos["duracion"] + cola
     else:
-        sys.exit("Sin voz hace falta --duracion.")
+        sys.exit("Sem voz: rode antes `montar.py --sem-voz` (dá a duração) ou passe --duracao <segundos>.")
     n = len(voz) if voz is not None else int(round(dur * SR))  # len(voz): int(dur*SR) pode perder 1 amostra
     mus = leer(a.pista)[:n] if a.pista else musica(a.musica, dur)
     mus = np.pad(mus, (0, max(0, n - len(mus))))[:n]

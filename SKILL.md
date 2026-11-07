@@ -26,7 +26,7 @@ O diretor decide o tema, aprova o storyboard e julga o resultado. Você faz o re
 | 7 | Voz local presa à palavra | ⚙️ | `python3 ferramentas/voz.py --projeto exemplos/<slug> exemplos/<slug>/roteiro.json` |
 | 8 | Imagens do objeto (a MESMA coisa em 3–5 vistas, luz neutra, sem texto) | 🤖 | Codex image_gen pela assinatura, ou fotos suas |
 | 9 | Página do reel (fotos + câmera + o invisível desenhado + legenda) | 🤖 | `index.html` + `js/` (copie `exemplos/geladeira/`) |
-| 10 | Relógio, música, preparar | ⚙️ | `montar.py` → `mezcla.py` → `preparar.py` (todos com `--projeto exemplos/<slug>`) |
+| 10 | Relógio, música, preparar | ⚙️ | `montar.py` → `mezcla.py` → `preparar.py` (sem GPU: `montar.py --sem-voz`) (todos com `--projeto exemplos/<slug>`) |
 | 11 | Teste e quadros parados | ⚙️ → 🧠 | `npx hyperframes check` · `npx hyperframes snapshot --at 0,<meio de cada cena>` |
 | 12 | Render | ⚙️ | `npx hyperframes render --output renders/<slug>.mp4` |
 | 13 | Conferir o MP4 (folha de quadros, quadro 0, som) + `checklists/antes-de-postar.md` | 🤖 + 🧠 | `ffmpeg -i renders/<slug>.mp4 -vf fps=1/2,scale=270:-1,tile=6x3 folha.jpg` |

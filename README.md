@@ -48,7 +48,7 @@ Clic cuida dos anúncios com 4 regras escritas em código) e o **link etiquetado
 | 7 | Voz local | ⚙️ | `python3 ferramentas/voz.py --projeto exemplos/<slug> exemplos/<slug>/roteiro.json` |
 | 8 | Imagens do objeto (3–5 vistas da mesma coisa) | 🤖 | Codex image_gen (assinatura) ou fotos suas |
 | 9 | Página do reel | 🤖 | `index.html` + `js/` (copie o exemplo da geladeira) |
-| 10 | Relógio + música + preparar | ⚙️ | `montar.py` → `mezcla.py` → `preparar.py` |
+| 10 | Relógio + música + preparar | ⚙️ | `montar.py` → `mezcla.py` → `preparar.py` (sem GPU: `montar.py --sem-voz`) |
 | 11 | Teste + quadros parados | ⚙️ → 🧠 | `npx hyperframes check` · `npx hyperframes snapshot` |
 | 12 | Render | ⚙️ | `npx hyperframes render --output renders/<slug>.mp4` |
 | 13 | Conferir o MP4 | 🤖 + 🧠 | folha de quadros + `checklists/antes-de-postar.md` |

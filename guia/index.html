@@ -125,7 +125,7 @@
 <div>
 <span class="chip">Kit grátis · reel sem rosto · agentes que só propõem</span>
 <h1>Reels de curiosidade que a IA faz. E o modelo que faz a view <span class="amb">valer</span>.</h1>
-<p class="lead">Você dá a pergunta ("por que a geladeira esquenta a cozinha?"). A IA pesquisa com fonte, escreve 4 ganchos, mostra o storyboard e só depois grava a voz e monta o vídeo. Dois agentes cuidam da conta e dos anúncios, sem gastar nada sem o seu OK.</p>
+<p class="lead">Você dá a pergunta ("por que a geladeira esquenta a cozinha?"). A IA pesquisa com fonte, escreve 4 ganchos, mostra o storyboard e só depois grava a voz e monta o vídeo. Dois agentes cuidam da conta e dos anúncios, sem gastar nada sem o seu OK. Não precisa de placa de vídeo: sem ela, o reel sai com legenda e música.</p>
 <div class="cta">
 <a class="btn" href="#guia">Começar o guia</a>
 <a class="btn ghost" href="https://github.com/inematds/curiosidade-viral" rel="noopener" target="_blank">Ver no GitHub</a>
@@ -231,16 +231,21 @@
 </div></div>
 <div class="step"><div class="b">8</div><div>
 <h3>Imagens e cenas</h3>
-<p>3 a 5 vistas da MESMA coisa (fotos suas ou geradas pelo Codex), luz neutra, sem texto. A IA monta a página do reel copiando o exemplo da geladeira.</p>
+<p>3 a 5 fotos da MESMA coisa: tire com o celular (de frente, aberta, por trás, de perto), com luz neutra e sem texto, e ponha em <code>exemplos/chuveiro/media/</code>. Quem tem o Codex pode pedir que ele gere as fotos. A IA monta a página do reel copiando o exemplo da geladeira.</p>
 <pre><span class="c">monta as cenas do exemplos/chuveiro a partir do exemplos/geladeira</span></pre>
 </div></div>
 <div class="step"><div class="b">9</div><div>
 <h3>Relógio, música e render</h3>
-<p>Antes do render (uns 5 minutos), tire quadros parados e olhe cada cena.</p>
-<pre><span class="k">python3</span> ferramentas/montar.py --projeto exemplos/chuveiro
+<p>Escolha um dos dois caminhos. Antes do render (uns 5 minutos), tire quadros parados e olhe cada cena.</p>
+<pre><span class="c"># A) COM voz gravada no passo 7 (GPU)</span>
+<span class="k">python3</span> ferramentas/montar.py --projeto exemplos/chuveiro
 <span class="k">python3</span> ferramentas/mezcla.py --projeto exemplos/chuveiro --id chuveiro --musica tranquila
-<span class="k">python3</span> ferramentas/preparar.py --projeto exemplos/chuveiro
-<span class="c"># sem GPU: montar.py --projeto exemplos/chuveiro --sem-voz</span>
+<span class="k">python3</span> ferramentas/preparar.py --projeto exemplos/chuveiro</pre>
+<pre><span class="c"># B) SEM voz (sem GPU): legenda + música, a duração sai do texto</span>
+<span class="k">python3</span> ferramentas/montar.py --projeto exemplos/chuveiro --sem-voz
+<span class="k">python3</span> ferramentas/mezcla.py --projeto exemplos/chuveiro --id chuveiro --musica tranquila
+<span class="k">python3</span> ferramentas/preparar.py --projeto exemplos/chuveiro</pre>
+<pre><span class="c"># depois, nos dois casos</span>
 <span class="k">cd</span> exemplos/chuveiro
 <span class="k">npx</span> hyperframes check
 <span class="k">npx</span> hyperframes snapshot --at 0,5,12,20 -o stills   <span class="c"># olhe as imagens em stills/</span>
@@ -257,8 +262,8 @@
 <span class="chip">Os dois agentes</span>
 <h2>Eles propõem. Você decide.</h2>
 <p class="sub">As regras estão no código, não só no prompt: o agente não consegue esquecer uma delas. Fichas para colar no seu agente: <code>agentes/curio.md</code> e <code>agentes/clic.md</code>.</p>
-<div class="grid g3" style="grid-template-columns:1fr 1fr">
-<div class="card"><h3>💬 Curio — a conta</h3><p>Separa DMs e comentários: "como faz?" ganha resposta pronta com o link; queixa, reembolso e marca vão para você; elogio, curtir. Só avisa quando há novidade.</p>
+<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(290px,1fr))">
+<div class="card"><h3>💬 Curio — a conta</h3><p>Separa DMs e comentários: "como faz?" ganha resposta pronta com o link; queixa, reembolso e marca vão para você; elogio, curtir. Só avisa quando há novidade. O script não envia nada: você copia e envia, ou liga a ficha <code>agentes/curio.md</code> a um agente seu.</p>
 <pre><span class="k">python3</span> agentes/curio_triagem.py agentes/exemplos/mensagens.json \
   --link <span class="s">"https://seu-site.com/?utm_medium=dm"</span> --estado curio.json</pre></div>
 <div class="card"><h3>📈 Clic — os anúncios</h3><p>1. sem OK não gasta · 2. teto por dia · 3. só sobe com retorno de 1,5 vez ou mais · 4. corta rápido o que não vende. E dois alarmes: medição quebrada e verba espalhada.</p>
@@ -266,7 +271,7 @@
 </div>
 <h3 style="margin-top:22px">De onde vêm os dados</h3>
 <p>Os agentes não entram na sua conta: você (ou a ferramenta que você já usa) exporta os dados para dois arquivos simples. O kit traz os dois de exemplo em <code>agentes/exemplos/</code>.</p>
-<div class="grid g3" style="grid-template-columns:1fr 1fr">
+<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(290px,1fr))">
 <div class="card"><h3>mensagens.json (Curio)</h3><p>As DMs e os comentários novos, copiados à mão ou exportados da rede.</p><pre>[{"id": "d1", "de": "@marina", "onde": "dm",
   "texto": "Como você faz esses vídeos?"}]</pre></div>
 <div class="card"><h3>metricas.json (Clic)</h3><p>Do gerenciador de anúncios (gasto, orçamento) e da sua loja (vendas, receita), na mesma moeda.</p><pre>{"config": {"teto_dia": 150, "retorno_min": 1.5},
@@ -317,7 +322,11 @@ Total proposto: 85/dia (teto 150).</pre>
 <div class="card"><h3>Laço de curiosidade</h3><p>Cada frase responde a anterior e abre uma pergunta nova, até a resposta final.</p></div>
 <div class="card"><h3>HyperFrames</h3><p>A ferramenta que transforma uma página web animada num vídeo MP4.</p></div>
 <div class="card"><h3>Retorno 1,5 vez</h3><p>Para cada 10 gastos no anúncio, voltaram 15 em vendas.</p></div>
-<div class="card"><h3>Link etiquetado (UTM)</h3><p>O mesmo link com um final que diz de onde a pessoa veio (qual reel, bio ou DM).</p></div>
+<div class="card"><h3>Link etiquetado (UTM)</h3><p>O mesmo link com um final (<code>?utm_…</code>, o padrão de marcação de links) que diz de onde a pessoa veio: qual reel, a bio ou uma DM.</p></div>
+<div class="card"><h3>DM</h3><p>Mensagem direta, no privado da rede social.</p></div>
+<div class="card"><h3>Gancho de reserva</h3><p>Os 3 ganchos que não foram escolhidos: servem para uma versão B do mesmo reel ou para um anúncio novo.</p></div>
+<div class="card"><h3>Teto do dia</h3><p>O máximo que os anúncios podem gastar por dia, somados, na moeda que você usar no <code>metricas.json</code>.</p></div>
+<div class="card"><h3>Chatterbox e Whisper</h3><p>Programas grátis que rodam no seu computador: o Chatterbox fala com a sua voz; o Whisper ouve e marca o tempo de cada palavra.</p></div>
 </div>
 </div></section>
 <footer>

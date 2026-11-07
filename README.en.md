@@ -45,7 +45,7 @@ And since going viral is the easy part, the kit includes the rest of the model: 
 | 7 | Local voice | ⚙️ | `python3 ferramentas/voz.py --projeto exemplos/<slug> exemplos/<slug>/roteiro.json` |
 | 8 | Object images (3–5 views of the same thing) | 🤖 | Codex image_gen (subscription) or your own photos |
 | 9 | Reel page | 🤖 | `index.html` + `js/` (copy the refrigerator example) |
-| 10 | Clock + music + prepare | ⚙️ | `montar.py` → `mezcla.py` → `preparar.py` |
+| 10 | Clock + music + prepare | ⚙️ | `montar.py` → `mezcla.py` → `preparar.py` (no GPU: `montar.py --sem-voz`) |
 | 11 | Test + still frames | ⚙️ → 🧠 | `npx hyperframes check` · `npx hyperframes snapshot` |
 | 12 | Render | ⚙️ | `npx hyperframes render --output renders/<slug>.mp4` |
 | 13 | Review the MP4 | 🤖 + 🧠 | storyboard sheet + `checklists/antes-de-postar.md` |

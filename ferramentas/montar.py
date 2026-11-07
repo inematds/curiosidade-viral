@@ -36,7 +36,7 @@ def estimar(rot, ritmo=2.6):
             t += pausa
         bloques.append({"id": b["id"], "inicio": round(b0, 3), "fin": round(t - pausa, 3)})
         t += entre
-    return {"id": rot["id"], "duracion": round(t - entre - pausa, 3), "bloques": bloques, "frases": frases, "palabras": palavras}
+    return {"estimado": True, "id": rot["id"], "duracion": round(t - entre - pausa, 3), "bloques": bloques, "frases": frases, "palabras": palavras}
 
 
 def main():
@@ -45,6 +45,7 @@ def main():
     ap.add_argument("--atraso", type=float, default=0.3, help="segundos de silêncio antes da 1ª palavra")
     ap.add_argument("--cauda", type=float, default=2.4, help="segundos depois da última palavra (volta ao título)")
     ap.add_argument("--max", type=int, default=3, help="palavras por grupo de legenda")
+    ap.add_argument("--forcar", action="store_true", help="com --sem-voz: troca até tempos de voz gravada")
     ap.add_argument("--sem-voz", action="store_true",
                     help="sem voz local: estima o tempo de cada palavra pelo texto (2,6 palavras/s) e grava voz/<id>/tiempos.json")
     a = ap.parse_args()
@@ -52,6 +53,8 @@ def main():
     rot = json.loads((P / "roteiro.json").read_text())
     arq = P / "voz" / rot["id"] / "tiempos.json"
     if a.sem_voz:
+        if arq.exists() and not json.loads(arq.read_text()).get("estimado") and not a.forcar:
+            raise SystemExit(f"{arq} tem os tempos da voz gravada: --sem-voz apagaria. Use --forcar se é isso mesmo.")
         arq.parent.mkdir(parents=True, exist_ok=True)
         arq.write_text(json.dumps(estimar(rot), ensure_ascii=False))
     elif not arq.exists():
