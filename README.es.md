@@ -10,6 +10,8 @@ curiosidade-viral es un kit (una "skill" para Claude Code o Codex) que crea reel
 
 📖 Guía completa: **https://inematds.github.io/curiosidade-viral/guia/es/**
 
+🎬 Video: **https://www.youtube.com/watch?v=TvcCIu0Rysk** · Short: https://youtube.com/shorts/bozJZre8N6U
+
 **Reels de curiosidades sin mostrar el rostro, hechos con IA, y el modelo que convierte las visualizaciones en resultados.**
 
 Una voz explica y la pantalla muestra, en grande y con textura, algo cotidiano (el refrigerador, la cebolla, el celular), con lo invisible dibujado encima. Tú haces la pregunta; la IA investiga los datos con fuentes, escribe 4 ganchos, prepara el storyboard para que lo apruebes y solo entonces graba la voz (local) y renderiza el video (con código, sin IA de video).

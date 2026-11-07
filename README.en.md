@@ -10,6 +10,8 @@ curiosidade-viral is a kit (a "skill" for Claude Code or Codex) that makes verti
 
 📖 Full guide: **https://inematds.github.io/curiosidade-viral/guia/en/**
 
+🎬 Video: **https://www.youtube.com/watch?v=TvcCIu0Rysk** · Short: https://youtube.com/shorts/bozJZre8N6U
+
 **Faceless AI curiosity reels, and the model that turns views into results.**
 
 A voice explains while the screen shows an everyday object (the refrigerator, the onion, the phone) large and textured, with the invisible drawn over it. You provide the question; AI researches the facts with sources, writes 4 hooks, assembles the storyboard for your approval, and only then records the voice (locally) and renders the video (in code, without video AI).

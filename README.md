@@ -10,6 +10,8 @@ O curiosidade-viral é um kit (uma "skill" para o Claude Code ou o Codex) que fa
 
 📖 Guia completo: **https://inematds.github.io/curiosidade-viral/guia/**
 
+🎬 Vídeo: **https://www.youtube.com/watch?v=TvcCIu0Rysk** · Short: https://youtube.com/shorts/bozJZre8N6U
+
 **Reels de curiosidade sem rosto feitos por IA, e o modelo que transforma views em resultado.**
 
 Uma voz explica e a tela mostra, grande e com textura, a coisa do dia a dia (a geladeira, a cebola, o celular), com o
